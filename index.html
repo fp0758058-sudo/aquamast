@@ -1,427 +1,391 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#07111f">
-<title>AQUAMAST EXCHANGE</title>
+<meta name="theme-color" content="#07091a">
+<meta name="description" content="AQUAMAST — обзор цифровых активов, котировки, графики и мониторинг рынка.">
+<title>AQUAMAST — Digital Assets</title>
 <style>
-:root{--bg:#07111f;--panel:#0d1b2c;--blue:#168cff;--cyan:#42d9ff;--text:#f2f7ff;--muted:#91a5bb;--line:rgba(145,190,230,.15)}
+:root{
+--bg:#060817;--panel:#10152b;--blue:#438cff;
+--cyan:#42f1ed;--violet:#a56bff;
+--text:#f3f6ff;--muted:#9ba8c7;
+--line:rgba(130,151,255,.2);
+--green:#42e6a4;--red:#ff718e
+}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:radial-gradient(ellipse at 80% 0%,rgba(18,117,220,.16),transparent 34%),var(--bg);color:var(--text);font-family:Arial,sans-serif;line-height:1.6}
+body{
+min-height:100vh;color:var(--text);
+font-family:Inter,Arial,sans-serif;line-height:1.6;
+background:
+radial-gradient(ellipse at 12% 8%,rgba(50,116,255,.2),transparent 34%),
+radial-gradient(ellipse at 88% 22%,rgba(164,73,255,.16),transparent 34%),
+#060817;
+background-attachment:fixed;overflow-x:hidden
+}
+body:before{
+content:"";position:fixed;inset:-25%;z-index:-1;
+pointer-events:none;
+background:
+radial-gradient(circle at 25% 30%,rgba(0,220,255,.12),transparent 25%),
+radial-gradient(circle at 75% 65%,rgba(150,75,255,.13),transparent 28%);
+filter:blur(65px);animation:ambient 18s ease-in-out infinite alternate
+}
+@keyframes ambient{to{transform:translate(3%,-2%) scale(1.08)}}
 a{color:inherit;text-decoration:none}
-.wrap{width:min(1120px,90%);margin:auto}
-header{position:sticky;top:0;z-index:10;background:rgba(7,17,31,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
-.nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.wrap{width:min(1160px,91%);margin:auto}
+header{
+position:sticky;top:0;z-index:20;
+background:rgba(6,8,23,.84);
+backdrop-filter:blur(18px);
+border-bottom:1px solid var(--line)
+}
+.nav{
+height:76px;display:flex;align-items:center;
+justify-content:space-between;gap:20px
+}
 .brand{display:flex;align-items:center;gap:12px}
-.mark{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(145deg,#36c9ff,#0864cf);font-size:25px;font-weight:900;font-style:italic;box-shadow:0 8px 28px #087de544}
-.brand b{display:block;font-size:15px;letter-spacing:2px}
+.mark{
+width:43px;height:43px;display:grid;place-items:center;
+border-radius:14px;
+background:linear-gradient(145deg,#42f5ed,#477bff 55%,#a34cff);
+font-size:25px;font-weight:900;font-style:italic;
+box-shadow:0 0 16px #38f5ed88,0 0 42px #5b5bff55;
+animation:logoGlow 4s ease-in-out infinite
+}
+@keyframes logoGlow{
+50%{box-shadow:0 0 25px #38f5edaa,0 0 58px #875cff77}
+}
+.brand b{display:block;font-size:15px;letter-spacing:2.5px}
 .brand small{display:block;color:var(--cyan);font-size:9px;letter-spacing:3px}
 .links{display:flex;gap:25px;color:var(--muted);font-size:13px}
-.links a:hover{color:white}
-.pill{padding:11px 17px;border-radius:10px;background:linear-gradient(100deg,#0878e8,#12b9df);font-size:12px;font-weight:700}
-.hero{padding:105px 0 75px}
-.eyebrow{display:inline-flex;align-items:center;gap:9px;padding:8px 13px;border:1px solid #42d9ff44;background:#42d9ff0c;border-radius:40px;color:var(--cyan);font-size:10px;letter-spacing:1.8px}
-.led{width:7px;height:7px;border-radius:50%;background:var(--cyan)}
-h1{font-size:clamp(42px,7vw,78px);line-height:1.04;letter-spacing:-3px;margin:25px 0 20px}
-h1 span{background:linear-gradient(90deg,#168cff,#54e6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.lead{max-width:620px;color:var(--muted);font-size:16px;line-height:1.9}
+.links a:hover{color:var(--cyan)}
+.pill,.btn.primary{
+background:linear-gradient(105deg,#287cff,#13c9d7 55%,#9360ff);
+box-shadow:0 0 22px #3d87ff44
+}
+.pill{padding:11px 17px;border-radius:10px;font-size:11px;font-weight:800}
+.hero{
+position:relative;isolation:isolate;overflow:hidden;
+padding:112px 0 78px;min-height:560px
+}
+.hero:before,.hero:after{
+content:"";position:absolute;pointer-events:none;
+border-radius:50%;z-index:-1
+}
+.hero:before{
+width:clamp(330px,45vw,560px);aspect-ratio:1;
+right:4%;top:48%;transform:translateY(-50%) rotate(-22deg) scaleY(.58);
+border:2px solid #42eaff99;
+box-shadow:0 0 16px #38eaff,0 0 55px #287cffaa,
+0 0 110px #6441ff66,inset 0 0 35px #28c8ff55;
+animation:portalPulse 8s ease-in-out infinite
+}
+.hero:after{
+width:clamp(280px,38vw,470px);aspect-ratio:1;
+right:8%;top:48%;transform:translateY(-50%) rotate(18deg) scaleY(.58);
+border:1px dashed #b168ffbb;
+box-shadow:0 0 28px #914bff66,inset 0 0 28px #914bff33;
+animation:portalSpin 32s linear infinite
+}
+@keyframes portalPulse{50%{filter:brightness(1.5);scale:1.035}}
+@keyframes portalSpin{to{rotate:360deg}}
+.hero-grid{
+position:absolute;inset:0;z-index:-2;opacity:.22;
+pointer-events:none;
+background-image:
+linear-gradient(#42d9ff13 1px,transparent 1px),
+linear-gradient(90deg,#42d9ff13 1px,transparent 1px);
+background-size:44px 44px
+}
+.eyebrow{
+display:inline-flex;align-items:center;gap:9px;padding:8px 13px;
+border:1px solid #42d9ff55;background:#42d9ff10;
+border-radius:40px;color:var(--cyan);
+font-size:10px;letter-spacing:1.8px
+}
+.led{
+width:7px;height:7px;border-radius:50%;
+background:var(--cyan);box-shadow:0 0 12px var(--cyan)
+}
+h1{
+font-size:clamp(43px,7vw,82px);line-height:1.02;
+letter-spacing:-3px;margin:25px 0 20px;max-width:760px
+}
+h1 span{
+background:linear-gradient(100deg,#43e9ff,#638bff 48%,#c17aff 85%,#43e9ff);
+background-size:220% auto;
+-webkit-background-clip:text;background-clip:text;
+color:transparent;animation:aurora 8s linear infinite
+}
+@keyframes aurora{to{background-position:220% center}}
+.lead{
+max-width:640px;color:var(--muted);
+font-size:16px;line-height:1.9
+}
 .actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:30px}
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 20px;border-radius:11px;font-size:13px;font-weight:700;transition:.2s}
-.btn:hover{transform:translateY(-2px)}
-.primary{background:linear-gradient(100deg,#0878e8,#12b9df)}
+.btn{
+display:inline-flex;align-items:center;justify-content:center;
+padding:13px 19px;border-radius:11px;
+font-size:12px;font-weight:800;transition:.25s
+}
+.btn:hover{transform:translateY(-3px);filter:brightness(1.15)}
 .secondary{border:1px solid var(--line);background:#ffffff08}
-.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:65px}
-.metric,.card,.panel{border:1px solid var(--line);background:linear-gradient(145deg,#10243a,#0a1727);border-radius:16px}
-.metric{padding:22px}
-.metric strong{display:block;font-size:18px}
-.metric span{color:var(--muted);font-size:12px}
-section{padding:65px 0}
+.metrics{
+display:grid;grid-template-columns:repeat(3,1fr);
+gap:14px;margin-top:58px;max-width:780px
+}
+.metric,.card,.panel,.market-dashboard,.calculator,
+.chart-panel,.signal-panel{
+border:1px solid var(--line);border-radius:17px;
+background:linear-gradient(135deg,rgba(35,54,105,.48),
+rgba(18,22,51,.82) 55%,rgba(76,37,112,.2));
+box-shadow:inset 0 1px 0 #ffffff0d,0 14px 38px #0003;
+backdrop-filter:blur(16px)
+}
+.metric{padding:20px}
+.metric strong{display:block;font-size:16px}
+.metric span{color:var(--muted);font-size:11px}
+section{padding:68px 0;scroll-margin-top:80px}
 .kicker{color:var(--cyan);font-size:10px;letter-spacing:2px}
-.heading{font-size:32px;letter-spacing:-1px;margin:10px 0}
-.sub{color:var(--muted);font-size:14px;max-width:660px;line-height:1.85}
+.heading{font-size:clamp(26px,4vw,34px);letter-spacing:-1px;margin:9px 0}
+.sub{color:var(--muted);font-size:14px;max-width:700px;line-height:1.8}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
-.card{padding:25px;transition:.22s}
-.card:hover{transform:translateY(-4px);border-color:#42d9ff66}
-.ico{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:#168cff20;color:var(--cyan);font-size:21px;margin-bottom:18px}
-.card h3{font-size:17px;margin:0 0 9px}
+.card{padding:24px;transition:.25s}
+.card:hover,.metric:hover,.panel:hover{
+transform:translateY(-4px);border-color:#42f5ed99;
+box-shadow:0 0 25px #38f5ed1f,0 0 42px #a04bff20
+}
+.ico{
+width:42px;height:42px;display:grid;place-items:center;
+border-radius:12px;background:linear-gradient(135deg,#2d82ff38,#a74bff33);
+color:var(--cyan);font-size:20px;margin-bottom:16px
+}
+.card h3{font-size:16px;margin-bottom:8px}
 .card p{font-size:13px;color:var(--muted);line-height:1.8}
-.market-dashboard{margin-top:25px;padding:25px;border:1px solid var(--line);border-radius:17px;background:linear-gradient(120deg,#10243a,#0a1727);overflow:hidden}
-.market-top{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;flex-wrap:wrap}
-.market-title{font-weight:700;font-size:18px}
-.market-caption{color:var(--muted);font-size:12px;margin-top:5px}
-.tag{color:var(--cyan);border:1px solid #42d9ff44;border-radius:8px;padding:7px 10px;font-size:10px;letter-spacing:1px}
-.market-tools{display:flex;gap:10px;margin:22px 0 14px}
-.market-tools input,.calc-input{width:100%;min-width:0;background:#071525;border:1px solid var(--line);border-radius:9px;padding:13px 14px;color:var(--text);outline:none;font-size:15px}
-.market-tools input:focus,.calc-input:focus{border-color:var(--cyan)}
-.market-tools button,.period{border:1px solid var(--line);background:#ffffff0a;color:var(--text);border-radius:9px;padding:10px 14px;cursor:pointer}
-.market-tools button:hover,.period:hover,.period.active{border-color:var(--cyan);color:var(--cyan);background:#42d9ff12}
+.market-dashboard,.calculator,.signal-panel{margin-top:25px;padding:24px}
+.market-top{
+display:flex;justify-content:space-between;
+align-items:flex-start;gap:15px;flex-wrap:wrap
+}
+.market-title{font-weight:800;font-size:17px}
+.market-caption{color:var(--muted);font-size:11px;margin-top:4px}
+.tag{
+color:var(--cyan);border:1px solid #42d9ff55;
+background:#42d9ff0b;border-radius:8px;
+padding:7px 10px;font-size:9px;letter-spacing:1px
+}
+.market-spotlight{
+display:grid;grid-template-columns:repeat(4,1fr);
+gap:12px;margin:22px 0
+}
+.spot-card{
+padding:17px;border:1px solid #42d9ff44;border-radius:14px;
+background:linear-gradient(145deg,#142e50,#10102a);
+box-shadow:0 0 20px #168cff22;cursor:pointer;
+transition:.25s;min-width:0;color:var(--text);text-align:left
+}
+.spot-card:hover,.spot-card.selected{
+transform:translateY(-3px);border-color:var(--cyan);
+box-shadow:0 0 28px #168cff55
+}
+.spot-card b{display:block;color:var(--cyan);font-size:10px;letter-spacing:1px}
+.spot-price{display:block;font-size:clamp(17px,2.3vw,23px);margin:10px 0 3px;overflow-wrap:anywhere}
+.spot-change{font-size:11px;font-weight:800}
+.positive{color:var(--green)}.negative{color:var(--red)}
+.market-tools{display:flex;gap:10px;margin:20px 0 13px}
+.market-tools input,.calc-input{
+width:100%;min-width:0;background:#080d20;
+border:1px solid var(--line);border-radius:10px;
+padding:12px 14px;color:var(--text);outline:none;font-size:14px
+}
+.market-tools input:focus,.calc-input:focus{
+border-color:var(--cyan);box-shadow:0 0 16px #168cff33
+}
+.action-button,.period{
+border:1px solid var(--line);background:#ffffff0a;
+color:var(--text);border-radius:9px;padding:10px 14px;white-space:nowrap
+}
+.action-button:hover,.period:hover,.period.active{
+border-color:var(--cyan);color:var(--cyan);background:#42d9ff12
+}
 .market-table-wrap{overflow-x:auto}
-.market-table{width:100%;border-collapse:collapse;min-width:420px;font-size:13px}
-.market-table th{text-align:left;color:var(--muted);font-size:11px;font-weight:500;padding:12px;border-bottom:1px solid var(--line)}
-.market-table td{padding:14px 12px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.market-table{width:100%;border-collapse:collapse;min-width:440px;font-size:12px}
+.market-table th{
+text-align:left;color:var(--muted);font-size:10px;
+font-weight:600;padding:12px;border-bottom:1px solid var(--line)
+}
+.market-table td{
+padding:13px 12px;border-bottom:1px solid var(--line);
+font-variant-numeric:tabular-nums
+}
 .market-table tbody tr{cursor:pointer;transition:background .15s}
-.market-table tbody tr:hover,.market-table tbody tr.selected{background:#168cff14}
-.coin-name{font-weight:700}.coin-symbol{color:var(--muted);font-size:11px;margin-left:7px}
-.positive{color:#20c997}.negative{color:#ff6878}
-.chart-panel{margin-top:22px;padding:20px;border:1px solid var(--line);border-radius:13px;background:#07152588}
-.chart-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
-.chart-heading strong{font-size:17px}
-.chart-periods{display:flex;gap:6px}
-.period{font-size:11px;padding:8px 11px}
-.chart-wrap{height:260px;margin-top:18px;position:relative}
+.market-table tbody tr:hover,.market-table tbody tr.selected{background:#168cff18}
+.coin-name{font-weight:800}.coin-symbol{color:var(--muted);font-size:10px;margin-left:7px}
+.chart-panel{margin-top:22px;padding:19px;background:#080d20aa}
+.chart-heading{
+display:flex;justify-content:space-between;
+align-items:center;gap:12px;flex-wrap:wrap
+}
+.chart-heading strong{font-size:15px}
+.chart-periods{display:flex;gap:6px;flex-wrap:wrap}
+.period{font-size:10px;padding:7px 10px}
+.chart-wrap{height:250px;margin-top:15px;position:relative}
 .chart-wrap canvas{width:100%;height:100%;display:block}
-.market-note{border-top:1px solid var(--line);padding-top:17px;margin-top:20px;color:var(--muted);font-size:12px;line-height:1.8}
-.calculator{margin-top:25px;padding:27px;border:1px solid #42d9ff33;border-radius:17px;background:linear-gradient(145deg,#10243a,#0a1727)}
-.calc-directions{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0}
-.calc-directions button{padding:10px 15px;border:1px solid var(--line);border-radius:9px;background:#ffffff08;color:var(--muted);cursor:pointer}
-.calc-directions button.active{color:var(--cyan);border-color:var(--cyan);background:#42d9ff12}
-.calc-label{display:block;color:var(--muted);font-size:12px;margin:14px 0 7px}
-.calc-result{margin-top:17px;padding:20px;border-radius:12px;background:#071525;border:1px solid var(--line)}
-.calc-result small{color:var(--muted);font-size:12px}
-.calc-result strong{display:block;font-size:clamp(25px,5vw,35px);margin-top:5px;overflow-wrap:anywhere}
-.calc-rate{color:var(--cyan);font-size:12px;margin-top:12px}
-.about{display:grid;grid-template-columns:1.1fr .9fr;gap:25px;align-items:center;margin-top:25px}
-.points{display:grid;gap:14px;margin-top:22px}
-.point{display:flex;gap:12px;color:var(--muted);font-size:13px}
-.check{color:var(--cyan);font-size:17px}
-.panel{padding:28px}
-.panel h3{margin:0 0 12px;font-size:20px}
-.panel p{margin:0;color:var(--muted);font-size:13px;line-height:1.9}
-.contactbox{text-align:center;padding:52px 24px;border:1px solid #42d9ff33;border-radius:20px;background:radial-gradient(ellipse at top,#168cff24,transparent 65%),#0c1a2b}
-.contactbox h2{font-size:30px;margin:9px 0}
-.contactbox p{color:var(--muted);font-size:14px;max-width:520px;margin:auto}
-.contactbox .btn{margin-top:23px}
-footer{margin-top:45px;border-top:1px solid var(--line);padding:25px 0 35px}
-.foot{display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
-.footnote{color:var(--muted);font-size:11px;margin-top:18px;line-height:1.8}
-@media(max-width:760px){.nav{height:68px}.links{display:none}.pill{padding:10px 12px;font-size:11px}.hero{padding:75px 0 50px}h1{letter-spacing:-2px}.metrics,.cards{grid-template-columns:1fr}.about{grid-template-columns:1fr}section{padding:48px 0}.heading{font-size:27px}.contactbox h2{font-size:25px}}
-@media(max-width:600px){.market-dashboard,.calculator{padding:16px}.market-tools{flex-direction:column}.chart-wrap{height:210px}.market-table td{padding:12px 8px;font-size:12px}.market-table th{padding:10px 8px}}
-
-/* AQUAMAST NEON TERMINAL UPGRADE */
-
-body {
-  background:
-    radial-gradient(ellipse at 15% 10%, rgba(0,140,255,.20), transparent 35%),
-    radial-gradient(ellipse at 85% 30%, rgba(0,230,255,.13), transparent 32%),
-    radial-gradient(ellipse at 50% 85%, rgba(20,70,255,.12), transparent 40%),
-    #030914;
-  background-attachment: fixed;
+.market-note{
+border-top:1px solid var(--line);padding-top:15px;margin-top:18px;
+color:var(--muted);font-size:11px;line-height:1.8
 }
-
-body::before {
-  content:"";
-  position:fixed;
-  inset:-30%;
-  pointer-events:none;
-  z-index:-1;
-  background:
-    radial-gradient(circle at 25% 35%,rgba(0,145,255,.13),transparent 25%),
-    radial-gradient(circle at 75% 65%,rgba(0,230,255,.10),transparent 25%);
-  filter:blur(55px);
-  animation: neonDrift 13s ease-in-out infinite alternate;
+.calc-directions{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0}
+.calc-directions button{
+padding:9px 14px;border:1px solid var(--line);
+border-radius:9px;background:#ffffff08;color:var(--muted)
 }
-
-@keyframes neonDrift {
-  from { transform:translate(-3%,-2%) scale(.95); }
-  to { transform:translate(3%,2%) scale(1.08); }
+.calc-directions button.active{
+color:var(--cyan);border-color:var(--cyan);background:#42d9ff12
 }
-
-.mark {
-  box-shadow:
-    0 0 12px #168cff,
-    0 0 30px #168cff88,
-    0 0 65px #168cff55;
-  animation: logoPulse 3s ease-in-out infinite;
+.calc-label{display:block;color:var(--muted);font-size:11px;margin:12px 0 7px}
+.calc-result{
+margin-top:15px;padding:18px;border-radius:12px;
+background:#080d20;border:1px solid #747bff55;
+box-shadow:inset 0 0 25px #168cff16
 }
-
-@keyframes logoPulse {
-  50% { box-shadow:0 0 20px #42d9ff,0 0 48px #168cffaa; }
+.calc-result small{color:var(--muted);font-size:11px}
+.calc-result strong{
+display:block;font-size:clamp(25px,5vw,35px);
+margin-top:5px;color:#52ddff;overflow-wrap:anywhere
 }
-
-h1 span {
-  text-shadow:0 0 22px #168cff88,0 0 55px #168cff44;
+.calc-rate{color:var(--cyan);font-size:11px;margin-top:9px}
+.signal-title{font-size:22px;font-weight:900;letter-spacing:2px}
+.signal-title span{color:var(--cyan);text-shadow:0 0 15px var(--blue)}
+.signal-sub{color:var(--muted);font-size:12px;margin:4px 0 18px}
+.signal-controls{
+display:grid;grid-template-columns:1fr 1fr auto;
+gap:12px;align-items:end
 }
-
-.eyebrow,.tag {
-  box-shadow:0 0 16px #42d9ff18,inset 0 0 14px #42d9ff0c;
+.signal-controls label{
+display:block;color:var(--muted);font-size:11px;margin-bottom:6px
 }
-
-.metric,.card,.panel,.market-dashboard,
-.calculator,.chart-panel {
-  background:linear-gradient(145deg,rgba(16,36,58,.88),rgba(5,16,31,.94));
-  border-color:rgba(48,177,255,.22);
-  box-shadow:
-    0 0 22px rgba(0,119,255,.07),
-    inset 0 0 22px rgba(0,170,255,.035);
-  backdrop-filter:blur(14px);
-  transition:border-color .3s,box-shadow .3s,transform .3s;
+.signal-controls select,.signal-controls button{
+width:100%;min-height:44px;border-radius:10px;padding:9px 11px
 }
-
-.metric:hover,.card:hover,.panel:hover {
-  border-color:#42d9ff88;
-  box-shadow:
-    0 0 18px #168cff35,
-    0 0 42px #168cff18,
-    inset 0 0 20px #42d9ff0b;
+.signal-controls select{
+color:white;background:#080d20;border:1px solid #34446b
 }
-
-.btn.primary,.pill {
-  background:linear-gradient(110deg,#0878ff,#00cfff);
-  box-shadow:0 0 15px #168cff66,0 0 35px #168cff33;
-  transition:.25s;
+.signal-controls button{
+color:white;background:linear-gradient(110deg,#087edb,#13bde7);
+border:1px solid #42d9ff;font-weight:800;
+box-shadow:0 0 18px #087edb55
 }
-
-.btn.primary:hover,.pill:hover {
-  box-shadow:0 0 22px #42d9ffbb,0 0 55px #168cff66;
-  filter:brightness(1.15);
+.signal-status{
+margin-top:16px;padding:13px;border-radius:10px;
+background:#080d20;border:1px solid #34415f;
+color:#c1d2e8;font-size:12px
 }
-
-.secondary {
-  box-shadow:inset 0 0 15px #168cff12;
+.signal-status.active{border-color:var(--cyan);color:#dffaff}
+.signal-status.triggered{
+border-color:var(--green);color:#a9ffdc;
+box-shadow:0 0 18px #42e6a422
 }
-
-.calc-result {
-  border-color:#168cff66;
-  box-shadow:inset 0 0 25px #168cff16,0 0 20px #168cff18;
+.signal-note{margin-top:10px;color:#8492b0;font-size:10px}
+.about{
+display:grid;grid-template-columns:1.1fr .9fr;
+gap:25px;align-items:center;margin-top:25px
 }
-
-.calc-result strong {
-  color:#52ddff;
-  text-shadow:0 0 18px #168cff88;
+.points{display:grid;gap:13px;margin-top:20px}
+.point{display:flex;gap:11px;color:var(--muted);font-size:12px}
+.check{color:var(--cyan);font-size:16px}
+.panel{padding:27px}
+.panel h3{font-size:19px;margin-bottom:10px}
+.panel p{color:var(--muted);font-size:12px;line-height:1.9}
+.contactbox{
+text-align:center;padding:48px 22px;
+border:1px solid #8170ff55;border-radius:20px;
+background:radial-gradient(ellipse at 15% 15%,#00dce626,transparent 48%),
+radial-gradient(ellipse at 85% 20%,#aa41ff2b,transparent 48%),#0c112a;
+box-shadow:0 0 45px #634bff20
 }
-
-.calc-directions button.active,
-.period.active {
-  box-shadow:0 0 15px #168cff55,inset 0 0 14px #42d9ff18;
+.contactbox h2{font-size:28px;margin:8px 0;text-shadow:0 0 22px #168cff66}
+.contactbox p{color:var(--muted);font-size:13px;max-width:560px;margin:auto}
+.contactbox .btn{margin-top:20px}
+footer{margin-top:35px;border-top:1px solid var(--line);padding:24px 0 32px}
+.foot{
+display:flex;justify-content:space-between;
+gap:18px;align-items:center;flex-wrap:wrap
 }
-
-.market-table tbody tr.selected {
-  box-shadow:inset 3px 0 #42d9ff,inset 0 0 22px #168cff18;
+.footnote{color:var(--muted);font-size:10px;margin-top:15px;line-height:1.8}
+#toast{
+position:fixed;left:50%;bottom:20px;
+transform:translate(-50%,20px);opacity:0;
+pointer-events:none;background:#101a35;
+border:1px solid var(--line);padding:10px 15px;
+border-radius:10px;font-size:12px;transition:.25s;z-index:50
 }
-
-.market-table tbody tr:hover {
-  background:linear-gradient(90deg,#168cff22,#42d9ff08);
+#toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:800px){
+.links{gap:13px}
+.hero{padding:82px 0 55px}
+.hero:before{right:-110px;opacity:.55}
+.hero:after{right:-80px;opacity:.45}
+.market-spotlight{grid-template-columns:repeat(2,1fr)}
+.about{grid-template-columns:1fr}
 }
-
-.positive {
-  text-shadow:0 0 12px #20c99766;
+@media(max-width:620px){
+.nav{height:66px}.links{display:none}
+.pill{padding:9px 11px;font-size:10px}
+.hero{min-height:0;padding:70px 0 48px}
+h1{letter-spacing:-2px}
+.metrics,.cards{grid-template-columns:1fr}
+.metrics{margin-top:38px}
+section{padding:48px 0}
+.market-dashboard,.calculator,.signal-panel{padding:15px}
+.market-tools{flex-direction:column}
+.chart-wrap{height:205px}
+.market-table td{padding:11px 8px;font-size:11px}
+.market-table th{padding:9px 8px}
+.signal-controls{grid-template-columns:1fr}
+.contactbox h2{font-size:24px}
 }
-
-.negative {
-  text-shadow:0 0 12px #ff687866;
+@media(prefers-reduced-motion:reduce){
+*,*::before,*::after{
+animation:none!important;transition:none!important;
+scroll-behavior:auto!important
 }
-
-.chart-panel {
-  border-color:#168cff55;
-  box-shadow:0 0 25px #168cff16,inset 0 0 25px #168cff0c;
 }
-
-.contactbox {
-  box-shadow:0 0 45px #168cff18,inset 0 0 45px #168cff12;
-  border-color:#42d9ff55;
-}
-
-.contactbox h2 {
-  text-shadow:0 0 22px #168cff66;
-}
-
-::selection {
-  background:#168cff88;
-  color:white;
-}
-
-input:focus {
-  box-shadow:0 0 16px #168cff33;
-}
-
-@media(prefers-reduced-motion:reduce) {
-  *,*::before,*::after {
-    animation:none!important;
-    transition:none!important;
-  }
-}
-/* AQUAMAST — AQUA CORE SIGNATURE */
-
-.hero {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background-image:
-    linear-gradient(rgba(66,217,255,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(66,217,255,.035) 1px,transparent 1px);
-  background-size: 42px 42px;
-}
-
-.hero .wrap {
-  position: relative;
-  isolation: isolate;
-}
-
-/* Энергетическое ядро */
-.hero .wrap::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  width: clamp(260px, 35vw, 410px);
-  aspect-ratio: 1;
-  right: 1%;
-  top: -35px;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 34% 28%, #e0ffff 0 1%, #5fe7ff 5%, transparent 18%),
-    radial-gradient(circle at 38% 34%, rgba(0,220,255,.9), rgba(0,115,255,.5) 28%, transparent 70%),
-    radial-gradient(circle at 55% 58%, rgba(0,180,255,.3), transparent 65%);
-  box-shadow:
-    0 0 35px rgba(0,196,255,.55),
-    0 0 90px rgba(0,113,255,.35),
-    0 0 150px rgba(0,70,255,.2),
-    inset -18px -15px 45px rgba(0,8,40,.85);
-  animation: aquaFloat 8s ease-in-out infinite,
-             aquaPulse 5s ease-in-out infinite;
-}
-
-/* Орбитальное кольцо */
-.hero .wrap::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  width: clamp(310px, 43vw, 510px);
-  aspect-ratio: 1;
-  right: -3%;
-  top: -80px;
-  border: 1px solid rgba(66,217,255,.55);
-  border-radius: 50%;
-  transform: rotate(-24deg) scaleY(.36);
-  box-shadow:
-    0 0 18px rgba(66,217,255,.3),
-    inset 0 0 18px rgba(66,217,255,.15);
-  animation: aquaOrbit 18s linear infinite;
-}
-
-@keyframes aquaFloat {
-  0%,100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(13px) scale(1.04); }
-}
-
-@keyframes aquaPulse {
-  0%,100% { filter: brightness(.9) saturate(1.1); }
-  50% { filter: brightness(1.25) saturate(1.6); }
-}
-
-@keyframes aquaOrbit {
-  to { transform: rotate(336deg) scaleY(.36); }
-}
-
-/* Световой проход по карточкам */
-.card,.metric,.panel,.calculator,
-.market-dashboard,.chart-panel {
-  position: relative;
-  overflow: hidden;
-}
-
-.card::before,.metric::before,.panel::before,
-.calculator::before,.market-dashboard::before,
-.chart-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  border-radius: inherit;
-  background: linear-gradient(
-    115deg,
-    transparent 20%,
-    rgba(66,217,255,.09) 48%,
-    transparent 72%
-  );
-  transform: translateX(-120%);
-  transition: transform .8s ease;
-}
-
-.card:hover::before,.metric:hover::before,
-.panel:hover::before,.calculator:hover::before,
-.market-dashboard:hover::before,
-.chart-panel:hover::before {
-  transform: translateX(120%);
-}
-
-.card:hover,.metric:hover,.panel:hover {
-  border-color: rgba(66,217,255,.8);
-  box-shadow:
-    0 0 22px rgba(0,140,255,.25),
-    0 0 55px rgba(0,190,255,.12);
-}
-
-.hero h1 span {
-  text-shadow:
-    0 0 20px rgba(22,140,255,.8),
-    0 0 55px rgba(66,217,255,.45);
-}
-
-.hero .eyebrow {
-  box-shadow:
-    0 0 22px rgba(0,210,255,.2),
-    inset 0 0 14px rgba(0,210,255,.1);
-}
-
-@media(max-width:760px) {
-  .hero .wrap::before {
-    width: 260px;
-    right: -55px;
-    top: 5px;
-    opacity: .4;
-  }
-  .hero .wrap::after {
-    width: 310px;
-    right: -75px;
-    top: -5px;
-    opacity: .4;
-  }
-}
-
-@media(prefers-reduced-motion:reduce) {
-  .hero .wrap::before,
-  .hero .wrap::after {
-    animation: none !important;
-  }
-  .card::before,.metric::before,.panel::before,
-  .calculator::before,.market-dashboard::before,
-  .chart-panel::before {
-    display: none;
-  }
-  
-}.market-spotlight{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}
-.spot-card{padding:18px;border:1px solid #42d9ff44;border-radius:14px;background:linear-gradient(145deg,#142e50,#080f25);box-shadow:0 0 20px #168cff22;cursor:pointer;transition:.25s}
-.spot-card:hover{transform:translateY(-4px);box-shadow:0 0 28px #168cff66;border-color:#42d9ff}
-.spot-card b{display:block;color:#42d9ff;font-size:11px;letter-spacing:1px}
-.spot-price{display:block;font-size:22px;margin:12px 0 4px}
-.spot-change{font-size:12px;font-weight:bold}
-.spot-change.positive{color:#20c997}
-.spot-change.negative{color:#ff6878}
-@media(max-width:760px){.market-spotlight{grid-template-columns:repeat(2,1fr)}}
+</style>
 </head>
 <body>
 <header>
 <div class="wrap nav">
-<a class="brand" href="#top"><span class="mark">A</span><span><b>AQUAMAST</b><small>EXCHANGE</small></span></a>
-<nav class="links">
-<a href="#about">О проекте</a><a href="#calculator">Калькулятор</a><a href="#market">Рынок</a><a href="#contacts">Контакты</a>
+<a class="brand" href="#top" aria-label="AQUAMAST — на главную">
+<span class="mark">A</span>
+<span><b>AQUAMAST</b><small>DIGITAL ASSETS</small></span>
+</a>
+<nav class="links" aria-label="Основная навигация">
+<a href="#about">О проекте</a>
+<a href="#calculator">Калькулятор</a>
+<a href="#market">Рынок</a>
+<a href="#signal">AQUA SIGNAL</a>
+<a href="#contacts">Контакты</a>
 </nav>
-<a class="pill" href="https://t.me/aquamast" target="_blank" rel="noopener">TELEGRAM ↗</a>
+<a class="pill" href="https://t.me/aquamast" target="_blank" rel="noopener noreferrer">TELEGRAM ↗</a>
 </div>
 </header>
 
 <main id="top">
 <section class="hero">
+<div class="hero-grid"></div>
 <div class="wrap">
 <div class="eyebrow"><span class="led"></span>DIGITAL ASSETS · TECHNOLOGY · INSIGHTS</div>
 <h1>Цифровые активы.<br><span>Новый взгляд.</span></h1>
-<p class="lead">AQUAMAST — проект о цифровых активах, финансовых технологиях и развитии современного рынка. Исследуем тенденции, делимся полезной информацией и говорим о безопасности цифровой среды.</p>
+<p class="lead">AQUAMAST — проект о цифровых активах, финансовых технологиях и развитии современного рынка. Изучаем тенденции, делимся полезной информацией и говорим о безопасности цифровой среды.</p>
 <div class="actions">
 <a class="btn primary" href="#market">Обзор рынка</a>
-<a class="btn secondary" href="https://t.me/aquamast" target="_blank" rel="noopener">Открыть Telegram ↗</a>
+<a class="btn secondary" href="https://t.me/aquamast" target="_blank" rel="noopener noreferrer">Открыть Telegram ↗</a>
 </div>
 <div class="metrics">
 <div class="metric"><strong>Digital Assets</strong><span>Цифровые активы и технологии</span></div>
@@ -435,7 +399,7 @@ input:focus {
 <div class="wrap">
 <div class="kicker">CURRENCY CALCULATOR</div>
 <h2 class="heading">Калькулятор RUB / USDT</h2>
-<p class="sub">Ориентировочный пересчёт валют по справочному курсу USD/RUB.</p>
+<p class="sub">Ориентировочный пересчёт по справочному курсу USD/RUB. Это математическая оценка, а не курс обменной операции.</p>
 <div class="calculator">
 <div class="market-top">
 <div><div class="market-title">Конвертер валют</div><div class="market-caption" id="rateStatus">Получаем справочный курс…</div></div>
@@ -446,13 +410,13 @@ input:focus {
 <button id="usdtToRub" type="button">USDT → RUB</button>
 </div>
 <label class="calc-label" id="amountLabel" for="calcAmount">Сумма в RUB</label>
-<input class="calc-input" id="calcAmount" type="number" min="0" step="any" placeholder="Введите сумму" value="10000">
+<input class="calc-input" id="calcAmount" type="number" min="0" step="any" inputmode="decimal" placeholder="Введите сумму" value="10000">
 <div class="calc-result">
 <small>Ориентировочный результат</small>
 <strong id="calcResult">Загрузка…</strong>
 <div class="calc-rate" id="calcRate">Курс загружается</div>
 </div>
-<p class="market-note">Расчёт справочный и не является предложением обмена. USDT не всегда равен одному доллару США; фактические курсы и комиссии могут отличаться.</p>
+<p class="market-note">Курс USD/RUB используется только как справочный ориентир. USDT может отличаться от USD по рыночной цене. Комиссии, спреды и условия сторон здесь не учитываются.</p>
 </div>
 </div>
 </section>
@@ -461,53 +425,74 @@ input:focus {
 <div class="wrap">
 <div class="kicker">LIVE MARKET DATA</div>
 <h2 class="heading">Крипторынок</h2>
-<p class="sub">Котировки популярных цифровых активов и история изменения цены.</p>
+<p class="sub">Публичные котировки популярных цифровых активов и история изменения цены.</p>
 <div class="market-dashboard">
 <div class="market-top">
-<div><div class="market-title">Рыночная сводка</div><div class="market-caption" id="marketUpdated">Загрузка котировок…</div></div>
+<div><div class="market-title">Рыночная сводка</div><div class="market-caption" id="marketUpdated" aria-live="polite">Загрузка котировок…</div></div>
 <span class="tag">PUBLIC MARKET DATA</span>
 </div>
 <div class="market-spotlight" id="marketSpotlight">
-  <article class="spot-card" data-spot="BTCUSDT"><b>BITCOIN · BTC</b><strong class="spot-price">—</strong><span class="spot-change">Загрузка…</span></article>
-  <article class="spot-card" data-spot="ETHUSDT"><b>ETHEREUM · ETH</b><strong class="spot-price">—</strong><span class="spot-change">Загрузка…</span></article>
-  <article class="spot-card" data-spot="SOLUSDT"><b>SOLANA · SOL</b><strong class="spot-price">—</strong><span class="spot-change">Загрузка…</span></article>
-  <article class="spot-card" data-spot="BNBUSDT"><b>BNB</b><strong class="spot-price">—</strong><span class="spot-change">Загрузка…</span></article>
-</div><div class="market-tools">
+<button class="spot-card" type="button" data-spot="BTCUSDT"><b>BITCOIN · BTC</b><strong class="spot-price">—</strong><span class="spot-change">Загрузка…</span></button>
+<button class="spot-card" type="button" data-spot="ETHUSDT"><b>ETHEREUM · ETH</b><strong class="spot-price">—</strong><span class="spot-change">Загрузка…</span></button>
+<button class="spot-card" type="button" data-spot="SOLUSDT"><b>SOLANA · SOL</b><strong class="spot-price">—</strong><span class="spot-change">Загрузка…</span></button>
+<button class="spot-card" type="button" data-spot="BNBUSDT"><b>BNB</b><strong class="spot-price">—</strong><span class="spot-change">Загрузка…</span></button>
+</div>
+<div class="market-tools">
 <input id="coinSearch" type="search" placeholder="Поиск актива: BTC, ETH…" aria-label="Поиск актива">
-<button id="refreshMarket" type="button">Обновить</button>
+<button class="action-button" id="refreshMarket" type="button">Обновить котировки</button>
 </div>
 <div class="market-table-wrap">
 <table class="market-table">
-<thead><tr><th>Актив</th><th>Цена, USDT</th><th>Изменение за 24 ч.</th></tr></thead>
+<thead><tr><th>АКТИВ</th><th>ЦЕНА, USDT</th><th>ИЗМЕНЕНИЕ 24 Ч</th></tr></thead>
 <tbody id="marketRows"><tr><td colspan="3">Загружаем данные…</td></tr></tbody>
 </table>
 </div>
 <div class="chart-panel">
 <div class="chart-heading">
-<div><strong id="chartCoinName">BTC / USDT</strong><div class="market-caption" id="chartPrice">Загрузка…</div></div>
+<div><strong id="chartCoinName">BTC / USDT</strong><div class="market-caption" id="chartPrice">История цены</div></div>
 <div class="chart-periods">
-<button class="period active" data-period="24h">24H</button>
-<button class="period" data-period="7d">7D</button>
-<button class="period" data-period="30d">30D</button>
+<button class="period active" data-period="24h" type="button">24 Ч</button>
+<button class="period" data-period="7d" type="button">7 ДНЕЙ</button>
+<button class="period" data-period="30d" type="button">30 ДНЕЙ</button>
 </div>
 </div>
-<div class="chart-wrap"><canvas id="priceChart" aria-label="График исторической цены" role="img"></canvas></div>
-<div class="market-caption" id="chartStatus">Загружаем историю цены…</div>
+<div class="chart-wrap"><canvas id="priceChart" role="img" aria-label="График изменения цены выбранной криптовалюты"></canvas></div>
+<div class="market-caption" id="chartStatus" aria-live="polite">График загружается…</div>
 </div>
-<p class="market-note">Данные предоставляются публичным API Binance и могут быть недоступны или обновляться с задержкой. Это информационный обзор, а не торговый терминал и финансовая рекомендация.</p>
+<p class="market-note">Данные предоставляются публичным API Binance и могут быть задержаны или временно недоступны. Это информационный обзор, не инвестиционная рекомендация.</p>
 </div>
 </div>
 </section>
 
-<section id="directions">
+<section id="signal">
 <div class="wrap">
-<div class="kicker">OUR DIRECTIONS</div>
-<h2 class="heading">Направления проекта</h2>
-<p class="sub">Информационные материалы о ключевых темах цифровой экономики.</p>
-<div class="cards">
-<article class="card"><div class="ico">₿</div><h3>Криптовалюты</h3><p>Базовые понятия, новости и аналитические материалы о рынке цифровых активов.</p></article>
-<article class="card"><div class="ico">⇄</div><h3>Финансовые технологии</h3><p>Обзор цифровых инструментов, платёжной инфраструктуры и технологических решений.</p></article>
-<article class="card"><div class="ico">◇</div><h3>Безопасность</h3><p>Защита данных, проверка адресов и ответственное использование цифровых сервисов.</p></article>
+<div class="kicker">MARKET MONITOR</div>
+<h2 class="heading">AQUA SIGNAL</h2>
+<p class="sub">Следи за изменением котировок выбранного актива и получай уведомление при достижении заданного порога.</p>
+<div class="signal-panel">
+<div class="signal-title">AQUA <span>SIGNAL</span></div>
+<div class="signal-sub">Мониторинг публичных изменений рынка</div>
+<div class="signal-controls">
+<div><label for="aquaCoin">Актив</label>
+<select id="aquaCoin">
+<option value="BTCUSDT">Bitcoin · BTC</option>
+<option value="ETHUSDT">Ethereum · ETH</option>
+<option value="BNBUSDT">BNB</option>
+<option value="SOLUSDT">Solana · SOL</option>
+<option value="XRPUSDT">XRP</option>
+<option value="DOGEUSDT">Dogecoin · DOGE</option>
+<option value="ADAUSDT">Cardano · ADA</option>
+<option value="TRXUSDT">TRON · TRX</option>
+</select></div>
+<div><label for="aquaThreshold">Порог изменения за 24 часа</label>
+<select id="aquaThreshold">
+<option value="1">±1%</option><option value="2" selected>±2%</option>
+<option value="3">±3%</option><option value="5">±5%</option><option value="10">±10%</option>
+</select></div>
+<div><button id="aquaToggle" type="button">Включить мониторинг</button></div>
+</div>
+<div id="aquaStatus" class="signal-status" aria-live="polite">Выбери актив и порог, чтобы начать наблюдение.</div>
+<div class="signal-note">Проверка выполняется, пока страница открыта. Уведомления браузера доступны при поддержке устройством и с разрешения пользователя. Сигнал не является прогнозом или торговой рекомендацией.</div>
 </div>
 </div>
 </section>
@@ -515,17 +500,18 @@ input:focus {
 <section id="about">
 <div class="wrap">
 <div class="kicker">ABOUT AQUAMAST</div>
-<h2 class="heading">Технологии. Прозрачность. Развитие.</h2>
+<h2 class="heading">Технологии. Прозрачность. Осознанность.</h2>
+<p class="sub">Мы собираем в одном месте полезные инструменты и информацию, которые помогают лучше ориентироваться в цифровой экономике.</p>
 <div class="about">
-<div>
-<p class="sub">AQUAMAST объединяет интерес к цифровым активам, современным технологиям и финансовой грамотности. Наша цель — делать информацию о быстро меняющемся рынке понятнее.</p>
 <div class="points">
-<div class="point"><span class="check">✦</span><span>Понятная информация о цифровом рынке</span></div>
-<div class="point"><span class="check">✦</span><span>Внимание к безопасности и проверке данных</span></div>
-<div class="point"><span class="check">✦</span><span>Новости и обновления проекта</span></div>
+<div class="point"><span class="check">✦</span><span>Публичные рыночные данные и наглядная динамика цен.</span></div>
+<div class="point"><span class="check">✦</span><span>Простые инструменты для справочных расчётов.</span></div>
+<div class="point"><span class="check">✦</span><span>Внимание к цифровой безопасности и проверке информации.</span></div>
 </div>
+<div class="panel">
+<h3>Security First</h3>
+<p>Проверяй адреса и сети перед любыми действиями с цифровыми активами. Не передавай никому seed-фразу, приватные ключи и коды подтверждения. Остерегайся обещаний гарантированной доходности и подозрительных ссылок.</p>
 </div>
-<div class="panel"><h3>AQUAMAST EXCHANGE</h3><p>Современная цифровая среда с акцентом на удобство, аккуратный дизайн и ответственное отношение к финансовым технологиям.</p></div>
 </div>
 </div>
 </section>
@@ -534,9 +520,9 @@ input:focus {
 <div class="wrap">
 <div class="contactbox">
 <div class="kicker">STAY CONNECTED</div>
-<h2>На связи с AQUAMAST</h2>
-<p>Новости проекта, публикации и обратная связь — в нашем Telegram-канале.</p>
-<a class="btn primary" href="https://t.me/aquamast" target="_blank" rel="noopener">Перейти в Telegram ↗</a>
+<h2>AQUAMAST COMMUNITY</h2>
+<p>Новости проекта, обновления, материалы о цифровых активах и обратная связь — в нашем Telegram-канале.</p>
+<a class="btn primary" href="https://t.me/aquamast" target="_blank" rel="noopener noreferrer">Перейти в Telegram ↗</a>
 </div>
 </div>
 </section>
@@ -545,152 +531,307 @@ input:focus {
 <footer>
 <div class="wrap">
 <div class="foot">
-<a class="brand" href="#top"><span class="mark">A</span><span><b>AQUAMAST</b><small>EXCHANGE</small></span></a>
-<span style="color:#91a5bb;font-size:11px">© 2026 AQUAMAST</span>
+<a class="brand" href="#top"><span class="mark">A</span><span><b>AQUAMAST</b><small>DIGITAL ASSETS</small></span></a>
+<span class="market-caption">© <span id="year"></span> AQUAMAST</span>
 </div>
-<p class="footnote">Информационный сайт. Материалы являются индивидуальной финансовой рекомендацией или публичной офертой. Сайт проводит обменные операции и принимает платежи.</p>
+<p class="footnote">Информационный сайт. Материалы не являются индивидуальной финансовой рекомендацией или публичной офертой. Сайт не проводит обменные операции и не принимает платежи. Рыночные данные и расчёты носят справочный характер.</p>
 </div>
 </footer>
+<div id="toast" role="status" aria-live="polite"></div>
 
 <script>
 (() => {
-const assets=[
-{symbol:"BTCUSDT",name:"Bitcoin",code:"BTC"},
-{symbol:"ETHUSDT",name:"Ethereum",code:"ETH"},
-{symbol:"BNBUSDT",name:"BNB",code:"BNB"},
-{symbol:"SOLUSDT",name:"Solana",code:"SOL"},
-{symbol:"XRPUSDT",name:"XRP",code:"XRP"},
-{symbol:"DOGEUSDT",name:"Dogecoin",code:"DOGE"},
-{symbol:"ADAUSDT",name:"Cardano",code:"ADA"},
-{symbol:"TRXUSDT",name:"TRON",code:"TRX"}];
+"use strict";
+const $ = id => document.getElementById(id);
+const assets = [
+{name:"Bitcoin",code:"BTC",symbol:"BTCUSDT"},
+{name:"Ethereum",code:"ETH",symbol:"ETHUSDT"},
+{name:"BNB",code:"BNB",symbol:"BNBUSDT"},
+{name:"Solana",code:"SOL",symbol:"SOLUSDT"},
+{name:"XRP",code:"XRP",symbol:"XRPUSDT"},
+{name:"Dogecoin",code:"DOGE",symbol:"DOGEUSDT"},
+{name:"Cardano",code:"ADA",symbol:"ADAUSDT"},
+{name:"TRON",code:"TRX",symbol:"TRXUSDT"}
+];
+let tickers=[];
+let selected="BTCUSDT";
+let period="24h";
+let usdRub=null;
+let calcDirection="rub";
+let marketBusy=false;
+let chartRequest=0;
+let signalTimer=null;
+let signalEnabled=false;
+let signalBusy=false;
+let signalNotified=false;
+let toastTimer=null;
 
-const $=id=>document.getElementById(id);
-const fmt=n=>Number(n).toLocaleString("ru-RU",{maximumFractionDigits:n<1?6:2});
-let selected="BTCUSDT",period="24h",tickers=[],usdRub=null,calcDirection="rub";
-
-function renderSpotlight(){
-  const spotlight=$("marketSpotlight");
-  if(!spotlight)return;
-
-  spotlight.querySelectorAll(".spot-card").forEach(card=>{
-    const t=tickers.find(x=>x.symbol===card.dataset.spot);
-    if(!t)return;renderSpotlight();
-
-    const change=Number(t.priceChangePercent);
-    card.querySelector(".spot-price").textContent=fmt(Number(t.lastPrice))+" USDT";
-
-    const el=card.querySelector(".spot-change");
-    el.textContent=(change>0?"+":"")+change.toFixed(2)+"% за 24 ч.";
-    el.className="spot-change "+(change>=0?"positive":"negative");
-
-    card.onclick=()=>{
-      selected=card.dataset.spot;
-      renderRows();
-      loadChart();
-    };
-  });
-}async function loadMarket(){
-$("marketUpdated").textContent="Обновляем котировки…";
-try{
-const symbols=encodeURIComponent(JSON.stringify(assets.map(a=>a.symbol)));
-  const res=await fetch("https://api.binance.com/api/v3/ticker/24hr?symbols="+symbols);
-if(!res.ok)throw Error("API error");
-tickers=await res.json();
-renderRows();
-$("marketUpdated").textContent="Обновлено: "+new Date().toLocaleTimeString("ru-RU")+" · источник: Binance";
-loadChart();
-}catch(e){
-$("marketUpdated").textContent="Не удалось загрузить котировки. Попробуйте позже.";
+function fmt(value,max=2){
+const n=Number(value);
+if(!Number.isFinite(n))return "—";
+return n.toLocaleString("ru-RU",{maximumFractionDigits:max});
+}
+function showToast(message){
+const el=$("toast");
+if(!el)return;
+el.textContent=message;
+el.classList.add("show");
+clearTimeout(toastTimer);
+toastTimer=setTimeout(()=>el.classList.remove("show"),2400);
+}
+function setMarketError(message){
+$("marketUpdated").textContent=message;
 $("marketRows").innerHTML='<tr><td colspan="3">Рыночные данные временно недоступны.</td></tr>';
 $("chartStatus").textContent="График временно недоступен.";
 }
+function renderSpotlight(){
+document.querySelectorAll(".spot-card").forEach(card=>{
+const ticker=tickers.find(item=>item.symbol===card.dataset.spot);
+if(!ticker)return;
+const change=Number(ticker.priceChangePercent);
+card.querySelector(".spot-price").textContent=
+fmt(ticker.lastPrice,ticker.lastPrice<1?6:2)+" USDT";
+const changeEl=card.querySelector(".spot-change");
+changeEl.textContent=(change>0?"+":"")+fmt(change,2)+"% за 24 ч.";
+changeEl.className="spot-change "+(change>=0?"positive":"negative");
+card.classList.toggle("selected",selected===card.dataset.spot);
+});
 }
-
 function renderRows(){
-const q=$("coinSearch").value.trim().toLowerCase();
-const rows=assets.filter(a=>(a.name+" "+a.code).toLowerCase().includes(q));
-$("marketRows").innerHTML=rows.map(a=>{
-const t=tickers.find(x=>x.symbol===a.symbol);
-if(!t)return "";
-const change=Number(t.priceChangePercent);
-return '<tr data-symbol="'+a.symbol+'" class="'+(selected===a.symbol?"selected":"")+'"><td><span class="coin-name">'+a.name+'</span><span class="coin-symbol">'+a.code+'</span></td><td>'+fmt(t.lastPrice)+'</td><td class="'+(change>=0?"positive":"negative")+'">'+(change>0?"+":"")+change.toFixed(2)+'%</td></tr>';
-}).join("")||'<tr><td colspan="3">Ничего не найдено.</td></tr>';
-document.querySelectorAll("#marketRows tr[data-symbol]").forEach(row=>row.addEventListener("click",()=>{
-selected=row.dataset.symbol;renderRows();loadChart();
-}));
+const query=$("coinSearch").value.trim().toLowerCase();
+const rows=assets.filter(asset=>(asset.name+" "+asset.code).toLowerCase().includes(query));
+const html=rows.map(asset=>{
+const ticker=tickers.find(item=>item.symbol===asset.symbol);
+if(!ticker)return "";
+const change=Number(ticker.priceChangePercent);
+return '<tr data-symbol="'+asset.symbol+'" class="'+
+(selected===asset.symbol?"selected":"")+'"><td><span class="coin-name">'+
+asset.name+'</span><span class="coin-symbol">'+asset.code+
+'</span></td><td>'+fmt(ticker.lastPrice,Number(ticker.lastPrice)<1?6:2)+
+'</td><td class="'+(change>=0?"positive":"negative")+'">'+
+(change>0?"+":"")+fmt(change,2)+'%</td></tr>';
+}).join("");
+$("marketRows").innerHTML=html||
+'<tr><td colspan="3">Ничего не найдено.</td></tr>';
+document.querySelectorAll("#marketRows tr[data-symbol]").forEach(row=>{
+row.addEventListener("click",()=>selectAsset(row.dataset.symbol));
+});
 }
-
-async function loadChart(){
-const a=assets.find(x=>x.symbol===selected),t=tickers.find(x=>x.symbol===selected);
-$("chartCoinName").textContent=a.code+" / USDT";
-$("chartPrice").textContent=t?"Цена: "+fmt(t.lastPrice)+" USDT":"";
-$("chartStatus").textContent="Загружаем историю цены…";
-const cfg=period==="24h"?{interval:"15m",limit:96}:period==="7d"?{interval:"1h",limit:168}:{interval:"4h",limit:180};
+function selectAsset(symbol){
+if(!assets.some(asset=>asset.symbol===symbol))return;
+selected=symbol;
+renderSpotlight();
+renderRows();
+loadChart();
+}
+async function loadMarket(){
+if(marketBusy)return;
+marketBusy=true;
+$("marketUpdated").textContent="Обновляем котировки…";
 try{
-const res=await fetch("https://api.binance.com/api/v3/klines?symbol="+selected+"&interval="+cfg.interval+"&limit="+cfg.limit);
-if(!res.ok)throw Error("API error");
-const candles=await res.json();
-drawChart(candles.map(c=>Number(c[4])));
-$("chartStatus").textContent="Исторические значения · период "+period.toUpperCase()+" · источник: Binance";
-}catch(e){$("chartStatus").textContent="История цены временно недоступна.";}
+const symbols=encodeURIComponent(JSON.stringify(assets.map(asset=>asset.symbol)));
+const response=await fetch(
+"https://api.binance.com/api/v3/ticker/24hr?symbols="+symbols,
+{cache:"no-store"}
+);
+if(!response.ok)throw new Error("Market API error");
+const data=await response.json();
+if(!Array.isArray(data))throw new Error("Unexpected market response");
+tickers=data;
+renderSpotlight();
+renderRows();
+$("marketUpdated").textContent=
+"Обновлено: "+new Date().toLocaleTimeString("ru-RU")+" · источник: Binance";
+await loadChart();
+}catch(error){
+if(!tickers.length){
+setMarketError("Не удалось загрузить котировки. Проверь подключение и попробуй позже.");
+}else{
+$("marketUpdated").textContent=
+"Не удалось обновить данные. Показаны последние полученные котировки.";
 }
-
+}finally{
+marketBusy=false;
+}
+}
+async function loadChart(){
+const requestId=++chartRequest;
+const asset=assets.find(item=>item.symbol===selected);
+if(!asset)return;
+const ticker=tickers.find(item=>item.symbol===selected);
+$("chartCoinName").textContent=asset.code+" / USDT";
+$("chartPrice").textContent=ticker?
+"Цена: "+fmt(ticker.lastPrice,Number(ticker.lastPrice)<1?6:2)+" USDT":
+"История цены";
+$("chartStatus").textContent="Загружаем историю цены…";
+const config=period==="24h"?{interval:"15m",limit:96}:
+period==="7d"?{interval:"1h",limit:168}:{interval:"4h",limit:180};
+try{
+const response=await fetch(
+"https://api.binance.com/api/v3/klines?symbol="+selected+
+"&interval="+config.interval+"&limit="+config.limit,
+{cache:"no-store"}
+);
+if(!response.ok)throw new Error("Chart API error");
+const candles=await response.json();
+if(requestId!==chartRequest)return;
+const values=candles.map(candle=>Number(candle[4])).filter(Number.isFinite);
+drawChart(values);
+$("chartStatus").textContent=
+"Исторические значения · период "+period.toUpperCase()+" · источник: Binance";
+}catch(error){
+if(requestId===chartRequest){
+$("chartStatus").textContent="История цены временно недоступна.";
+}
+}
+}
 function drawChart(values){
-if(!values.length)return;
-const canvas=$("priceChart"),rect=canvas.getBoundingClientRect(),dpr=window.devicePixelRatio||1;
-canvas.width=Math.max(1,Math.floor(rect.width*dpr));
-canvas.height=Math.max(1,Math.floor(rect.height*dpr));
-const ctx=canvas.getContext("2d");ctx.setTransform(dpr,0,0,dpr,0,0);
-const w=rect.width,h=rect.height,pad=12,min=Math.min(...values),max=Math.max(...values),range=max-min||1;
-ctx.clearRect(0,0,w,h);
-ctx.strokeStyle="rgba(145,190,230,.13)";
-for(let i=0;i<4;i++){const y=pad+(h-pad*2)*i/3;ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(w-pad,y);ctx.stroke();}
-const pts=values.map((v,i)=>({x:pad+(w-pad*2)*i/Math.max(1,values.length-1),y:h-pad-(v-min)/range*(h-pad*2)}));
-const grad=ctx.createLinearGradient(0,pad,0,h-pad);
-grad.addColorStop(0,"rgba(22,140,255,.28)");grad.addColorStop(1,"rgba(22,140,255,0)");
-ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
-ctx.lineTo(pts[pts.length-1].x,h-pad);ctx.lineTo(pts[0].x,h-pad);ctx.closePath();ctx.fillStyle=grad;ctx.fill();
-ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
-ctx.strokeStyle="#42d9ff";ctx.lineWidth=2;ctx.stroke();
+const canvas=$("priceChart");
+if(!canvas||!values.length)return;
+const rect=canvas.getBoundingClientRect();
+if(!rect.width||!rect.height)return;
+const dpr=Math.min(window.devicePixelRatio||1,2);
+canvas.width=Math.floor(rect.width*dpr);
+canvas.height=Math.floor(rect.height*dpr);
+const ctx=canvas.getContext("2d");
+ctx.setTransform(dpr,0,0,dpr,0,0);
+const width=rect.width,height=rect.height,pad=12;
+const min=Math.min(...values),max=Math.max(...values),range=max-min||1;
+ctx.clearRect(0,0,width,height);
+ctx.strokeStyle="rgba(145,190,230,.14)";
+ctx.lineWidth=1;
+for(let i=0;i<4;i++){
+const y=pad+(height-pad*2)*i/3;
+ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(width-pad,y);ctx.stroke();
 }
-
+const points=values.map((value,index)=>({
+x:pad+(width-pad*2)*index/Math.max(1,values.length-1),
+y:height-pad-(value-min)/range*(height-pad*2)
+}));
+const gradient=ctx.createLinearGradient(0,pad,0,height-pad);
+gradient.addColorStop(0,"rgba(56,190,255,.3)");
+gradient.addColorStop(1,"rgba(56,190,255,0)");
+ctx.beginPath();
+points.forEach((point,index)=>index?ctx.lineTo(point.x,point.y):ctx.moveTo(point.x,point.y));
+ctx.lineTo(points[points.length-1].x,height-pad);
+ctx.lineTo(points[0].x,height-pad);
+ctx.closePath();
+ctx.fillStyle=gradient;
+ctx.fill();
+ctx.beginPath();
+points.forEach((point,index)=>index?ctx.lineTo(point.x,point.y):ctx.moveTo(point.x,point.y));
+ctx.strokeStyle="#42f1ed";
+ctx.lineWidth=2;
+ctx.shadowColor="#438cff";
+ctx.shadowBlur=8;
+ctx.stroke();
+ctx.shadowBlur=0;
+}
 async function loadRubRate(){
 $("rateStatus").textContent="Получаем справочный курс USD/RUB…";
 try{
-const res=await fetch("https://open.er-api.com/v6/latest/USD");
-if(!res.ok)throw Error("Rate API error");
-const data=await res.json();
-if(data.result!=="success"||!data.rates.RUB)throw Error("No RUB rate");
+const response=await fetch(
+"https://open.er-api.com/v6/latest/USD",{cache:"no-store"}
+);
+if(!response.ok)throw new Error("Rate API error");
+const data=await response.json();
+if(data.result!=="success"||!Number(data.rates?.RUB)){
+throw new Error("No RUB rate");
+}
 usdRub=Number(data.rates.RUB);
-$("rateStatus").textContent="Справочный USD/RUB: "+fmt(usdRub)+" · обновлено "+new Date(data.time_last_update_utc).toLocaleString("ru-RU");
+$("rateStatus").textContent=
+"Справочный USD/RUB: "+fmt(usdRub,2)+" · обновлено "+
+new Date(data.time_last_update_utc).toLocaleString("ru-RU");
 updateCalculator();
-}catch(e){
-$("rateStatus").textContent="Не удалось получить справочный курс. Попробуйте позже.";
+}catch(error){
+$("rateStatus").textContent="Не удалось получить справочный курс.";
 $("calcRate").textContent="Курс временно недоступен.";
+$("calcResult").textContent="Нет данных";
 }
 }
-
 function updateCalculator(){
 const amount=Math.max(0,Number($("calcAmount").value)||0);
-if(!usdRub){$("calcResult").textContent="Нет данных";return;}
-if(calcDirection==="rub"){
-$("amountLabel").textContent="Сумма в RUB";
-$("calcResult").textContent=fmt(amount/usdRub)+" USDT";
-$("calcRate").textContent="Ориентир: 1 USDT ≈ "+fmt(usdRub)+" RUB";
-}else{
-$("amountLabel").textContent="Сумма в USDT";
-$("calcResult").textContent=fmt(amount*usdRub)+" RUB";
-$("calcRate").textContent="Ориентир: 1 USDT ≈ "+fmt(usdRub)+" RUB";
+if(!usdRub){
+$("calcResult").textContent="Нет данных";
+return;
 }
+$("amountLabel").textContent=calcDirection==="rub"?
+"Сумма в RUB":"Сумма в USDT";
+$("calcResult").textContent=calcDirection==="rub"?
+fmt(amount/usdRub,4)+" USDT":fmt(amount*usdRub,2)+" RUB";
+$("calcRate").textContent=
+"Справочный ориентир: 1 USD ≈ "+fmt(usdRub,2)+" RUB";
 }
-
 function setDirection(direction){
 calcDirection=direction;
 $("rubToUsdt").classList.toggle("active",direction==="rub");
 $("usdtToRub").classList.toggle("active",direction==="usdt");
 $("calcAmount").value="";
-$("calcAmount").placeholder=direction==="rub"?"Введите сумму в RUB":"Введите сумму в USDT";
+$("calcAmount").placeholder=direction==="rub"?
+"Введите сумму в RUB":"Введите сумму в USDT";
 updateCalculator();
+}
+async function checkSignal(){
+if(!signalEnabled||signalBusy)return;
+signalBusy=true;
+const status=$("aquaStatus");
+try{
+const symbols=encodeURIComponent(JSON.stringify(assets.map(asset=>asset.symbol)));
+const response=await fetch(
+"https://api.binance.com/api/v3/ticker/24hr?symbols="+symbols,
+{cache:"no-store"}
+);
+if(!response.ok)throw new Error("Signal API error");
+const data=await response.json();
+const ticker=data.find(item=>item.symbol===$("aquaCoin").value);
+if(!ticker)throw new Error("Ticker unavailable");
+const change=Number(ticker.priceChangePercent);
+const price=Number(ticker.lastPrice);
+const limit=Number($("aquaThreshold").value);
+const reached=Math.abs(change)>=limit;
+status.className="signal-status "+(reached?"triggered":"active");
+status.textContent=(reached?"Порог достигнут · ":"Наблюдение активно · ")+
+$("aquaCoin").value.replace("USDT","")+": "+
+(change>0?"+":"")+fmt(change,2)+"% за 24 часа · Цена: "+
+fmt(price,price<1?6:2)+" USDT · "+new Date().toLocaleTimeString("ru-RU");
+if(reached&&!signalNotified){
+if("Notification" in window&&Notification.permission==="granted"){
+new Notification("AQUA SIGNAL",{
+body:$("aquaCoin").value.replace("USDT","")+
+": изменение "+(change>0?"+":"")+fmt(change,2)+"% за 24 часа"
+});
+}else{
+showToast("Порог изменения достигнут.");
+}
+signalNotified=true;
+}
+if(!reached)signalNotified=false;
+}catch(error){
+status.className="signal-status";
+status.textContent="Не удалось получить котировки. Проверка повторится автоматически.";
+}finally{
+signalBusy=false;
+}
+}
+async function toggleSignal(){
+signalEnabled=!signalEnabled;
+const button=$("aquaToggle");
+const status=$("aquaStatus");
+if(signalEnabled){
+button.textContent="Отключить мониторинг";
+status.textContent="Подключаемся к публичным котировкам…";
+if("Notification" in window&&Notification.permission==="default"){
+try{await Notification.requestPermission();}catch(error){}
+}
+checkSignal();
+signalTimer=setInterval(checkSignal,30000);
+}else{
+clearInterval(signalTimer);
+signalTimer=null;
+button.textContent="Включить мониторинг";
+status.className="signal-status";
+status.textContent="Наблюдение выключено.";
+}
 }
 
 $("coinSearch").addEventListener("input",renderRows);
@@ -698,534 +839,37 @@ $("refreshMarket").addEventListener("click",loadMarket);
 $("calcAmount").addEventListener("input",updateCalculator);
 $("rubToUsdt").addEventListener("click",()=>setDirection("rub"));
 $("usdtToRub").addEventListener("click",()=>setDirection("usdt"));
-document.querySelectorAll(".period").forEach(btn=>btn.addEventListener("click",()=>{
-period=btn.dataset.period;
-document.querySelectorAll(".period").forEach(b=>b.classList.toggle("active",b===btn));
+
+document.querySelectorAll(".period").forEach(button=>{
+button.addEventListener("click",()=>{
+period=button.dataset.period;
+document.querySelectorAll(".period").forEach(item=>{
+item.classList.toggle("active",item===button);
+});
 loadChart();
-}));
-window.addEventListener("resize",()=>{if(tickers.length)loadChart();});
+});
+});
+document.querySelectorAll(".spot-card").forEach(card=>{
+card.addEventListener("click",()=>selectAsset(card.dataset.spot));
+});
+$("aquaToggle").addEventListener("click",toggleSignal);
+$("aquaCoin").addEventListener("change",()=>{
+signalNotified=false;
+if(signalEnabled)checkSignal();
+});
+$("aquaThreshold").addEventListener("change",()=>{
+signalNotified=false;
+if(signalEnabled)checkSignal();
+});
+window.addEventListener("resize",()=>{
+if(tickers.length)drawChart([]);
+});
+$("year").textContent=new Date().getFullYear();
 loadMarket();
 loadRubRate();
 setInterval(loadMarket,60000);
 setInterval(loadRubRate,900000);
 })();
 </script>
-<!-- AQUAMAST | AQUA SIGNAL -->
-<style>
-.signal-panel {
-  margin: 28px auto;
-  padding: 24px;
-  border: 1px solid rgba(66,217,255,.35);
-  border-radius: 18px;
-  background: linear-gradient(135deg,#10243a,#071525);
-  box-shadow: 0 0 35px rgba(0,145,255,.13);
-}
-.signal-title {
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: 2px;
-}
-.signal-title span {
-  color: #42d9ff;
-  text-shadow: 0 0 15px #168cff;
-}
-.signal-sub {
-  color: #91a5bb;
-  font-size: 13px;
-  margin: 5px 0 20px;
-}
-.signal-controls {
-  display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  gap: 12px;
-}
-.signal-controls label {
-  display: block;
-  color: #91a5bb;
-  font-size: 12px;
-  margin-bottom: 7px;
-}
-.signal-controls select,
-.signal-controls button {
-  width: 100%;
-  min-height: 45px;
-  border-radius: 10px;
-  padding: 10px;
-}
-.signal-controls select {
-  color: white;
-  background: #091729;
-  border: 1px solid #24516c;
-}
-.signal-controls button {
-  color: white;
-  background: linear-gradient(110deg,#087edb,#13bde7);
-  border: 1px solid #42d9ff;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 0 18px #087edb55;
-}
-.signal-status {
-  margin-top: 17px;
-  padding: 14px;
-  border-radius: 10px;
-  background: #061321;
-  border: 1px solid #24415a;
-  color: #b9cde0;
-  font-size: 13px;
-}
-.signal-status.active {
-  border-color: #42d9ff;
-  color: #dffaff;
-}
-.signal-status.triggered {
-  border-color: #42e6a4;
-  color: #a9ffdc;
-  box-shadow: 0 0 18px #42e6a422;
-}
-.signal-note {
-  margin-top: 12px;
-  color: #71869d;
-  font-size: 11px;
-}
-@media(max-width:650px) {
-  .signal-controls { grid-template-columns: 1fr; }
-}
-/* AQUAMAST — NEON AURORA */
-
-:root {
-  --bg: #050817;
-  --panel: #10152d;
-  --blue: #398bff;
-  --cyan: #38f5ed;
-  --text: #f4f7ff;
-  --muted: #9ba9c9;
-  --line: rgba(112, 133, 255, .22);
-}
-
-body {
-  background:
-    radial-gradient(ellipse at 12% 12%, rgba(48, 104, 255, .22), transparent 36%),
-    radial-gradient(ellipse at 88% 24%, rgba(170, 57, 255, .19), transparent 34%),
-    radial-gradient(ellipse at 50% 90%, rgba(0, 235, 220, .10), transparent 38%),
-    #050817;
-  background-attachment: fixed;
-}
-
-body::before {
-  background:
-    radial-gradient(circle at 20% 30%, rgba(0, 225, 255, .14), transparent 26%),
-    radial-gradient(circle at 75% 60%, rgba(166, 65, 255, .15), transparent 28%);
-  filter: blur(65px);
-}
-
-.mark {
-  background: linear-gradient(145deg, #42f5ed, #477bff 55%, #a34cff);
-  box-shadow:
-    0 0 16px rgba(56, 245, 237, .65),
-    0 0 38px rgba(91, 91, 255, .45);
-}
-
-h1 span {
-  background: linear-gradient(
-    100deg,
-    #43e9ff,
-    #638bff 48%,
-    #c17aff 85%,
-    #43e9ff
-  );
-  background-size: 220% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: auroraText 7s linear infinite;
-}
-
-@keyframes auroraText {
-  to { background-position: 220% center; }
-}
-
-.metric, .card, .panel,
-.market-dashboard, .calculator {
-  background:
-    linear-gradient(135deg,
-      rgba(35, 54, 105, .48),
-      rgba(18, 22, 51, .78) 55%,
-      rgba(76, 37, 112, .24));
-  border-color: rgba(117, 139, 255, .24);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.055),
-    0 12px 35px rgba(0,0,0,.18);
-  backdrop-filter: blur(16px);
-}
-
-.card:hover {
-  border-color: rgba(56, 245, 237, .7);
-  box-shadow:
-    0 0 24px rgba(56, 245, 237, .12),
-    0 0 35px rgba(160, 75, 255, .13);
-}
-
-.eyebrow, .tag {
-  color: #63f5ee;
-  border-color: rgba(56, 245, 237, .38);
-  background: rgba(56, 245, 237, .07);
-  box-shadow: 0 0 20px rgba(56, 245, 237, .12);
-}
-
-.primary, .pill {
-  background: linear-gradient(105deg, #287cff, #13c9d7 55%, #9360ff);
-  box-shadow: 0 0 24px rgba(61, 135, 255, .25);
-}
-
-.ico {
-  color: #69f3f0;
-  background: linear-gradient(135deg,
-    rgba(45, 130, 255, .22),
-    rgba(167, 75, 255, .2));
-  box-shadow: inset 0 0 18px rgba(85, 130, 255, .12);
-}
-
-.chart-panel, .calc-result {
-  background: rgba(5, 12, 30, .72);
-  border-color: rgba(115, 133, 255, .25);
-}
-
-.contactbox {
-  background:
-    radial-gradient(ellipse at 15% 15%, rgba(0, 220, 230, .15), transparent 48%),
-    radial-gradient(ellipse at 85% 20%, rgba(170, 65, 255, .2), transparent 48%),
-    rgba(12, 17, 42, .88);
-  border-color: rgba(130, 110, 255, .35);
-  box-shadow: 0 0 45px rgba(99, 75, 255, .12);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  h1 span { animation: none; }
-    /* AQUAMAST — AQUA PORTAL & PARTICLES */
-
-.hero {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background-image:
-    radial-gradient(ellipse at 78% 45%,
-      rgba(83, 60, 255, .17), transparent 42%),
-    linear-gradient(rgba(66,217,255,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(66,217,255,.035) 1px,transparent 1px);
-  background-size: auto, 42px 42px, 42px 42px;
-}
-
-.hero .wrap {
-  z-index: 1;
-}
-
-/* Большой энергетический портал */
-.hero::before {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  pointer-events: none;
-  width: clamp(340px, 48vw, 590px);
-  aspect-ratio: 1;
-  right: 5%;
-  top: 48%;
-  transform: translateY(-50%) rotate(-22deg) scaleY(.58);
-  border-radius: 50%;
-  border: 2px solid rgba(62, 236, 255, .7);
-  box-shadow:
-    0 0 12px #38eaff,
-    0 0 35px rgba(40, 140, 255, .8),
-    0 0 85px rgba(100, 65, 255, .45),
-    inset 0 0 28px rgba(40, 200, 255, .35);
-  animation: portalEnergy 9s ease-in-out infinite;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  pointer-events: none;
-  width: clamp(280px, 40vw, 490px);
-  aspect-ratio: 1;
-  right: 9%;
-  top: 48%;
-  transform: translateY(-50%) rotate(18deg) scaleY(.58);
-  border-radius: 50%;
-  border: 1px dashed rgba(177, 104, 255, .65);
-  box-shadow:
-    0 0 25px rgba(145, 75, 255, .35),
-    inset 0 0 25px rgba(145, 75, 255, .18);
-  animation: portalSpin 28s linear infinite;
-}
-
-@keyframes portalEnergy {
-  0%,100% {
-    filter: brightness(.8);
-    scale: .97;
-  }
-  50% {
-    filter: brightness(1.5);
-    scale: 1.04;
-  }
-}
-
-@keyframes portalSpin {
-  to {
-    rotate: 360deg;
-  }
-}
-
-/* Движущиеся цифровые частицы */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: .55;
-  background-image:
-    radial-gradient(2px 2px at 12% 22%, #49eaff 98%, transparent),
-    radial-gradient(2px 2px at 78% 18%, #a66aff 98%, transparent),
-    radial-gradient(1.5px 1.5px at 43% 65%, #49eaff 98%, transparent),
-    radial-gradient(2px 2px at 88% 77%, #8d7bff 98%, transparent),
-    radial-gradient(1.5px 1.5px at 23% 84%, #49eaff 98%, transparent),
-    radial-gradient(2px 2px at 61% 42%, #a66aff 98%, transparent);
-  background-size: 330px 330px;
-  animation: particleDrift 24s linear infinite;
-}
-
-@keyframes particleDrift {
-  from { background-position: 0 0; }
-  to { background-position: 330px -330px; }
-}
-
-/* Мобильная адаптация */
-@media(max-width:760px) {
-  .hero::before {
-    right: -100px;
-    top: 38%;
-    opacity: .55;
-  }
-  .hero::after {
-    right: -75px;
-    top: 38%;
-    opacity: .45;
-  }
-}
-
-@media(prefers-reduced-motion:reduce) {
-  .hero::before,
-  .hero::after,
-  body::after {
-    animation: none !important;
-  }
-  
-/* AQUAMAST — PARTICLES VISIBILITY FIX */
-
-body {
-  isolation: isolate;
-}
-
-body > * {
-  position: relative;
-  z-index: 1;
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: .8;
-  background-image:
-    radial-gradient(2px 2px at 12% 22%, #49eaff 98%, transparent),
-    radial-gradient(2px 2px at 78% 18%, #c18aff 98%, transparent),
-    radial-gradient(2px 2px at 43% 65%, #49eaff 98%, transparent),
-    radial-gradient(2px 2px at 88% 77%, #a58aff 98%, transparent),
-    radial-gradient(2px 2px at 23% 84%, #49eaff 98%, transparent),
-    radial-gradient(2px 2px at 61% 42%, #c18aff 98%, transparent),
-    radial-gradient(1.5px 1.5px at 35% 12%, #ffffff 98%, transparent),
-    radial-gradient(2px 2px at 95% 48%, #49eaff 98%, transparent);
-  background-size: 280px 280px;
-  animation: particleDrift 18s linear infinite;
-}
-
-@keyframes particleDrift {
-  from { background-position: 0 0; }
-  to { background-position: 280px -190px; }
-}
-  }}</style>
-
-<section id="aqua-signal">
-  <div class="wrap">
-    <div class="signal-panel">
-      <div class="signal-title">
-        AQUA <span>SIGNAL</span>
-      </div>
-      <div class="signal-sub">
-        Мониторинг изменений криптовалютного рынка
-      </div>
-
-      <div class="signal-controls">
-        <div>
-          <label for="aquaCoin">Актив</label>
-          <select id="aquaCoin">
-            <option value="BTCUSDT">Bitcoin · BTC</option>
-            <option value="ETHUSDT">Ethereum · ETH</option>
-            <option value="BNBUSDT">BNB</option>
-            <option value="SOLUSDT">Solana · SOL</option>
-            <option value="XRPUSDT">XRP</option>
-            <option value="DOGEUSDT">Dogecoin · DOGE</option>
-            <option value="ADAUSDT">Cardano · ADA</option>
-            <option value="TRXUSDT">TRON · TRX</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="aquaThreshold">Порог изменения за 24 часа</label>
-          <select id="aquaThreshold">
-            <option value="1">±1%</option>
-            <option value="2" selected>±2%</option>
-            <option value="3">±3%</option>
-            <option value="5">±5%</option>
-            <option value="10">±10%</option>
-          </select>
-        </div>
-
-        <div>
-          <label>&nbsp;</label>
-          <button id="aquaToggle" type="button">
-            Включить сигнал
-          </button>
-        </div>
-      </div>
-
-      <div id="aquaStatus" class="signal-status" aria-live="polite">
-        Выбери актив и порог для начала наблюдения.
-      </div>
-
-      <div class="signal-note">
-        Информационный мониторинг публичных котировок Binance.
-        Сигнал не является прогнозом или торговой рекомендацией.
-        Проверка работает, пока открыта эта страница.
-      </div>
-    </div>
-  </div>
-</section>
-
-<script>
-(() => {
-  const coin = document.getElementById("aquaCoin");
-  const threshold = document.getElementById("aquaThreshold");
-  const toggle = document.getElementById("aquaToggle");
-  const status = document.getElementById("aquaStatus");
-
-  if (!coin || !threshold || !toggle || !status) return;
-
-  let enabled = false;
-  let timer = null;
-  let busy = false;
-
-  const symbols = [
-    "BTCUSDT","ETHUSDT","BNBUSDT","SOLUSDT",
-    "XRPUSDT","DOGEUSDT","ADAUSDT","TRXUSDT"
-  ];
-
-  async function checkMarket() {
-    if (!enabled || busy) return;
-    busy = true;
-
-    try {
-      const response = await fetch(
-        "https://api.binance.com/api/v3/ticker/24hr?symbols=" +
-        encodeURIComponent(JSON.stringify(symbols))
-      );
-
-      if (!response.ok) throw new Error("API unavailable");
-
-      const data = await response.json();
-      const ticker = data.find(item => item.symbol === coin.value);
-
-      if (!ticker) throw new Error("No ticker");
-
-      const change = Number(ticker.priceChangePercent);
-      const price = Number(ticker.lastPrice);
-      const limit = Number(threshold.value);
-      const reached = Math.abs(change) >= limit;
-
-      status.className = "signal-status " +
-        (reached ? "triggered" : "active");
-
-      status.textContent =
-        (reached ? "AQUA SIGNAL · Порог достигнут. " :
-        "Наблюдение активно. ") +
-        coin.value.replace("USDT","") +
-        ": " + (change > 0 ? "+" : "") +
-        change.toFixed(2) +
-        "% за 24 часа · Цена: " +
-        price.toLocaleString("ru-RU") + " USDT" +
-        " · " + new Date().toLocaleTimeString("ru-RU");
-
-      if (reached && "Notification" in window &&
-          Notification.permission === "granted") {
-        if (!checkMarket.notified) {
-          new Notification("AQUA SIGNAL", {
-            body: coin.value.replace("USDT","") +
-              ": изменение " + change.toFixed(2) + "%"
-          });
-          checkMarket.notified = true;
-        }
-      } else {
-        checkMarket.notified = false;
-      }
-
-    } catch (error) {
-      status.className = "signal-status";
-      status.textContent =
-        "Не удалось получить котировки. Повторная проверка позже.";
-    } finally {
-      busy = false;
-    }
-  }
-
-  toggle.addEventListener("click", async () => {
-    enabled = !enabled;
-
-    if (enabled) {
-      toggle.textContent = "Отключить сигнал";
-      status.textContent = "Подключаемся к публичным котировкам…";
-
-      if ("Notification" in window &&
-          Notification.permission === "default") {
-        try {
-          await Notification.requestPermission();
-        } catch (e) {}
-      }
-
-      checkMarket();
-      timer = setInterval(checkMarket, 30000);
-
-    } else {
-      clearInterval(timer);
-      timer = null;
-      toggle.textContent = "Включить сигнал";
-      status.className = "signal-status";
-      status.textContent = "Наблюдение выключено.";
-    }
-  });
-
-  coin.addEventListener("change", () => {
-    checkMarket.notified = false;
-    if (enabled) checkMarket();
-  });
-
-  threshold.addEventListener("change", () => {
-    checkMarket.notified = false;
-    if (enabled) checkMarket();
-  });
-})();
-</script>
-<!-- END AQUAMAST AQUA SIGNAL --></body>
-</html>
+</body>
+  </html>
