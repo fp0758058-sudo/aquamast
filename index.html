@@ -756,7 +756,118 @@ setInterval(loadRubRate,900000);
 @media(max-width:650px) {
   .signal-controls { grid-template-columns: 1fr; }
 }
-</style>
+/* AQUAMAST — NEON AURORA */
+
+:root {
+  --bg: #050817;
+  --panel: #10152d;
+  --blue: #398bff;
+  --cyan: #38f5ed;
+  --text: #f4f7ff;
+  --muted: #9ba9c9;
+  --line: rgba(112, 133, 255, .22);
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 12% 12%, rgba(48, 104, 255, .22), transparent 36%),
+    radial-gradient(ellipse at 88% 24%, rgba(170, 57, 255, .19), transparent 34%),
+    radial-gradient(ellipse at 50% 90%, rgba(0, 235, 220, .10), transparent 38%),
+    #050817;
+  background-attachment: fixed;
+}
+
+body::before {
+  background:
+    radial-gradient(circle at 20% 30%, rgba(0, 225, 255, .14), transparent 26%),
+    radial-gradient(circle at 75% 60%, rgba(166, 65, 255, .15), transparent 28%);
+  filter: blur(65px);
+}
+
+.mark {
+  background: linear-gradient(145deg, #42f5ed, #477bff 55%, #a34cff);
+  box-shadow:
+    0 0 16px rgba(56, 245, 237, .65),
+    0 0 38px rgba(91, 91, 255, .45);
+}
+
+h1 span {
+  background: linear-gradient(
+    100deg,
+    #43e9ff,
+    #638bff 48%,
+    #c17aff 85%,
+    #43e9ff
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: auroraText 7s linear infinite;
+}
+
+@keyframes auroraText {
+  to { background-position: 220% center; }
+}
+
+.metric, .card, .panel,
+.market-dashboard, .calculator {
+  background:
+    linear-gradient(135deg,
+      rgba(35, 54, 105, .48),
+      rgba(18, 22, 51, .78) 55%,
+      rgba(76, 37, 112, .24));
+  border-color: rgba(117, 139, 255, .24);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.055),
+    0 12px 35px rgba(0,0,0,.18);
+  backdrop-filter: blur(16px);
+}
+
+.card:hover {
+  border-color: rgba(56, 245, 237, .7);
+  box-shadow:
+    0 0 24px rgba(56, 245, 237, .12),
+    0 0 35px rgba(160, 75, 255, .13);
+}
+
+.eyebrow, .tag {
+  color: #63f5ee;
+  border-color: rgba(56, 245, 237, .38);
+  background: rgba(56, 245, 237, .07);
+  box-shadow: 0 0 20px rgba(56, 245, 237, .12);
+}
+
+.primary, .pill {
+  background: linear-gradient(105deg, #287cff, #13c9d7 55%, #9360ff);
+  box-shadow: 0 0 24px rgba(61, 135, 255, .25);
+}
+
+.ico {
+  color: #69f3f0;
+  background: linear-gradient(135deg,
+    rgba(45, 130, 255, .22),
+    rgba(167, 75, 255, .2));
+  box-shadow: inset 0 0 18px rgba(85, 130, 255, .12);
+}
+
+.chart-panel, .calc-result {
+  background: rgba(5, 12, 30, .72);
+  border-color: rgba(115, 133, 255, .25);
+}
+
+.contactbox {
+  background:
+    radial-gradient(ellipse at 15% 15%, rgba(0, 220, 230, .15), transparent 48%),
+    radial-gradient(ellipse at 85% 20%, rgba(170, 65, 255, .2), transparent 48%),
+    rgba(12, 17, 42, .88);
+  border-color: rgba(130, 110, 255, .35);
+  box-shadow: 0 0 45px rgba(99, 75, 255, .12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  h1 span { animation: none; }
+    }</style>
 
 <section id="aqua-signal">
   <div class="wrap">
