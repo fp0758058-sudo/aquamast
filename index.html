@@ -560,9 +560,9 @@ const assets=[
 {symbol:"SOLUSDT",name:"Solana",code:"SOL"},
 {symbol:"XRPUSDT",name:"XRP",code:"XRP"},
 {symbol:"DOGEUSDT",name:"Dogecoin",code:"DOGE"},
-;{symbol:"ADAUSDT",name:"Cardano",code:"ADA"},
-;{symbol:"TRXUSDT",name:"TRON",code:"TRX"}
-];
+{symbol:"ADAUSDT",name:"Cardano",code:"ADA"},
+{symbol:"TRXUSDT",name:"TRON",code:"TRX"}
+
 const $=id=>document.getElementById(id);
 const fmt=n=>Number(n).toLocaleString("ru-RU",{maximumFractionDigits:n<1?6:2});
 let selected="BTCUSDT",period="24h",tickers=[],usdRub=null,calcDirection="rub";
@@ -571,28 +571,7 @@ async function loadMarket(){
 $("marketUpdated").textContent="Обновляем котировки…";
 try{
 const symbols=encodeURIComponent(JSON.stringify(assets.map(a=>a.symbol)));
-function renderSpotlight(){
-  const spotlight=$("marketSpotlight");
-  if(!spotlight)return;
-
-  spotlight.querySelectorAll(".spot-card").forEach(card=>{
-    const t=tickers.find(x=>x.symbol===card.dataset.spot);
-    if(!t)return;
-
-    const change=Number(t.priceChangePercent);
-    card.querySelector(".spot-price").textContent=fmt(Number(t.lastPrice))+" USDT";
-
-    const el=card.querySelector(".spot-change");
-    el.textContent=(change>0?"+":"")+change.toFixed(2)+"% за 24 ч.";
-    el.className="spot-change "+(change>=0?"positive":"negative");
-
-    card.onclick=()=>{
-      selected=card.dataset.spot;
-      renderRows();
-      loadChart();
-    };
-  });
-}const res=await fetch("https://api.binance.com/api/v3/ticker/24hr?symbols="+symbols);
+  const res=await fetch("https://api.binance.com/api/v3/ticker/24hr?symbols="+symbols);
 if(!res.ok)throw Error("API error");
 tickers=await res.json();
 renderRows();
