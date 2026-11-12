@@ -243,7 +243,155 @@ input:focus {
     transition:none!important;
   }
 }
-</style>
+/* AQUAMAST — AQUA CORE SIGNATURE */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-image:
+    linear-gradient(rgba(66,217,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(66,217,255,.035) 1px,transparent 1px);
+  background-size: 42px 42px;
+}
+
+.hero .wrap {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Энергетическое ядро */
+.hero .wrap::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: clamp(260px, 35vw, 410px);
+  aspect-ratio: 1;
+  right: 1%;
+  top: -35px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, #e0ffff 0 1%, #5fe7ff 5%, transparent 18%),
+    radial-gradient(circle at 38% 34%, rgba(0,220,255,.9), rgba(0,115,255,.5) 28%, transparent 70%),
+    radial-gradient(circle at 55% 58%, rgba(0,180,255,.3), transparent 65%);
+  box-shadow:
+    0 0 35px rgba(0,196,255,.55),
+    0 0 90px rgba(0,113,255,.35),
+    0 0 150px rgba(0,70,255,.2),
+    inset -18px -15px 45px rgba(0,8,40,.85);
+  animation: aquaFloat 8s ease-in-out infinite,
+             aquaPulse 5s ease-in-out infinite;
+}
+
+/* Орбитальное кольцо */
+.hero .wrap::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: clamp(310px, 43vw, 510px);
+  aspect-ratio: 1;
+  right: -3%;
+  top: -80px;
+  border: 1px solid rgba(66,217,255,.55);
+  border-radius: 50%;
+  transform: rotate(-24deg) scaleY(.36);
+  box-shadow:
+    0 0 18px rgba(66,217,255,.3),
+    inset 0 0 18px rgba(66,217,255,.15);
+  animation: aquaOrbit 18s linear infinite;
+}
+
+@keyframes aquaFloat {
+  0%,100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(13px) scale(1.04); }
+}
+
+@keyframes aquaPulse {
+  0%,100% { filter: brightness(.9) saturate(1.1); }
+  50% { filter: brightness(1.25) saturate(1.6); }
+}
+
+@keyframes aquaOrbit {
+  to { transform: rotate(336deg) scaleY(.36); }
+}
+
+/* Световой проход по карточкам */
+.card,.metric,.panel,.calculator,
+.market-dashboard,.chart-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before,.metric::before,.panel::before,
+.calculator::before,.market-dashboard::before,
+.chart-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(66,217,255,.09) 48%,
+    transparent 72%
+  );
+  transform: translateX(-120%);
+  transition: transform .8s ease;
+}
+
+.card:hover::before,.metric:hover::before,
+.panel:hover::before,.calculator:hover::before,
+.market-dashboard:hover::before,
+.chart-panel:hover::before {
+  transform: translateX(120%);
+}
+
+.card:hover,.metric:hover,.panel:hover {
+  border-color: rgba(66,217,255,.8);
+  box-shadow:
+    0 0 22px rgba(0,140,255,.25),
+    0 0 55px rgba(0,190,255,.12);
+}
+
+.hero h1 span {
+  text-shadow:
+    0 0 20px rgba(22,140,255,.8),
+    0 0 55px rgba(66,217,255,.45);
+}
+
+.hero .eyebrow {
+  box-shadow:
+    0 0 22px rgba(0,210,255,.2),
+    inset 0 0 14px rgba(0,210,255,.1);
+}
+
+@media(max-width:760px) {
+  .hero .wrap::before {
+    width: 260px;
+    right: -55px;
+    top: 5px;
+    opacity: .4;
+  }
+  .hero .wrap::after {
+    width: 310px;
+    right: -75px;
+    top: -5px;
+    opacity: .4;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .hero .wrap::before,
+  .hero .wrap::after {
+    animation: none !important;
+  }
+  .card::before,.metric::before,.panel::before,
+  .calculator::before,.market-dashboard::before,
+  .chart-panel::before {
+    display: none;
+  }
+  }</style>
 </head>
 <body>
 <header>
