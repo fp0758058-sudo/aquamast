@@ -99,6 +99,150 @@ footer{margin-top:45px;border-top:1px solid var(--line);padding:25px 0 35px}
 .footnote{color:var(--muted);font-size:11px;margin-top:18px;line-height:1.8}
 @media(max-width:760px){.nav{height:68px}.links{display:none}.pill{padding:10px 12px;font-size:11px}.hero{padding:75px 0 50px}h1{letter-spacing:-2px}.metrics,.cards{grid-template-columns:1fr}.about{grid-template-columns:1fr}section{padding:48px 0}.heading{font-size:27px}.contactbox h2{font-size:25px}}
 @media(max-width:600px){.market-dashboard,.calculator{padding:16px}.market-tools{flex-direction:column}.chart-wrap{height:210px}.market-table td{padding:12px 8px;font-size:12px}.market-table th{padding:10px 8px}}
+
+/* AQUAMAST NEON TERMINAL UPGRADE */
+
+body {
+  background:
+    radial-gradient(ellipse at 15% 10%, rgba(0,140,255,.20), transparent 35%),
+    radial-gradient(ellipse at 85% 30%, rgba(0,230,255,.13), transparent 32%),
+    radial-gradient(ellipse at 50% 85%, rgba(20,70,255,.12), transparent 40%),
+    #030914;
+  background-attachment: fixed;
+}
+
+body::before {
+  content:"";
+  position:fixed;
+  inset:-30%;
+  pointer-events:none;
+  z-index:-1;
+  background:
+    radial-gradient(circle at 25% 35%,rgba(0,145,255,.13),transparent 25%),
+    radial-gradient(circle at 75% 65%,rgba(0,230,255,.10),transparent 25%);
+  filter:blur(55px);
+  animation: neonDrift 13s ease-in-out infinite alternate;
+}
+
+@keyframes neonDrift {
+  from { transform:translate(-3%,-2%) scale(.95); }
+  to { transform:translate(3%,2%) scale(1.08); }
+}
+
+.mark {
+  box-shadow:
+    0 0 12px #168cff,
+    0 0 30px #168cff88,
+    0 0 65px #168cff55;
+  animation: logoPulse 3s ease-in-out infinite;
+}
+
+@keyframes logoPulse {
+  50% { box-shadow:0 0 20px #42d9ff,0 0 48px #168cffaa; }
+}
+
+h1 span {
+  text-shadow:0 0 22px #168cff88,0 0 55px #168cff44;
+}
+
+.eyebrow,.tag {
+  box-shadow:0 0 16px #42d9ff18,inset 0 0 14px #42d9ff0c;
+}
+
+.metric,.card,.panel,.market-dashboard,
+.calculator,.chart-panel {
+  background:linear-gradient(145deg,rgba(16,36,58,.88),rgba(5,16,31,.94));
+  border-color:rgba(48,177,255,.22);
+  box-shadow:
+    0 0 22px rgba(0,119,255,.07),
+    inset 0 0 22px rgba(0,170,255,.035);
+  backdrop-filter:blur(14px);
+  transition:border-color .3s,box-shadow .3s,transform .3s;
+}
+
+.metric:hover,.card:hover,.panel:hover {
+  border-color:#42d9ff88;
+  box-shadow:
+    0 0 18px #168cff35,
+    0 0 42px #168cff18,
+    inset 0 0 20px #42d9ff0b;
+}
+
+.btn.primary,.pill {
+  background:linear-gradient(110deg,#0878ff,#00cfff);
+  box-shadow:0 0 15px #168cff66,0 0 35px #168cff33;
+  transition:.25s;
+}
+
+.btn.primary:hover,.pill:hover {
+  box-shadow:0 0 22px #42d9ffbb,0 0 55px #168cff66;
+  filter:brightness(1.15);
+}
+
+.secondary {
+  box-shadow:inset 0 0 15px #168cff12;
+}
+
+.calc-result {
+  border-color:#168cff66;
+  box-shadow:inset 0 0 25px #168cff16,0 0 20px #168cff18;
+}
+
+.calc-result strong {
+  color:#52ddff;
+  text-shadow:0 0 18px #168cff88;
+}
+
+.calc-directions button.active,
+.period.active {
+  box-shadow:0 0 15px #168cff55,inset 0 0 14px #42d9ff18;
+}
+
+.market-table tbody tr.selected {
+  box-shadow:inset 3px 0 #42d9ff,inset 0 0 22px #168cff18;
+}
+
+.market-table tbody tr:hover {
+  background:linear-gradient(90deg,#168cff22,#42d9ff08);
+}
+
+.positive {
+  text-shadow:0 0 12px #20c99766;
+}
+
+.negative {
+  text-shadow:0 0 12px #ff687866;
+}
+
+.chart-panel {
+  border-color:#168cff55;
+  box-shadow:0 0 25px #168cff16,inset 0 0 25px #168cff0c;
+}
+
+.contactbox {
+  box-shadow:0 0 45px #168cff18,inset 0 0 45px #168cff12;
+  border-color:#42d9ff55;
+}
+
+.contactbox h2 {
+  text-shadow:0 0 22px #168cff66;
+}
+
+::selection {
+  background:#168cff88;
+  color:white;
+}
+
+input:focus {
+  box-shadow:0 0 16px #168cff33;
+}
+
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    animation:none!important;
+    transition:none!important;
+  }
+}
 </style>
 </head>
 <body>
