@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -6,303 +7,381 @@
 <meta name="theme-color" content="#07111f">
 <title>AQUAMAST EXCHANGE</title>
 <style>
-:root {
-  --bg:#07111f;
-  --panel:#0d1b2c;
-  --blue:#168cff;
-  --cyan:#42d9ff;
-  --text:#f2f7ff;
-  --muted:#91a5bb;
-  --line:rgba(145,190,230,.15);
-}
-* {box-sizing:border-box;margin:0;padding:0}
-html {scroll-behavior:smooth}
-body {
-  background:radial-gradient(ellipse at 80% 0%,rgba(18,117,220,.16),transparent 34%),var(--bg);
-  color:var(--text);
-  font-family:Arial,sans-serif;
-  line-height:1.6;
-}
-a {color:inherit;text-decoration:none}
-.wrap {width:min(1120px,90%);margin:auto}
-header {
-  position:sticky;top:0;z-index:10;
-  background:rgba(7,17,31,.94);
-  border-bottom:1px solid var(--line);
-}
-.nav {
-  height:78px;display:flex;
-  align-items:center;justify-content:space-between;gap:20px;
-}
-.brand {display:flex;align-items:center;gap:12px}
-.mark {
-  width:42px;height:42px;border-radius:13px;
-  display:grid;place-items:center;
-  background:linear-gradient(145deg,#36c9ff,#0864cf);
-  font-size:25px;font-weight:900;font-style:italic;
-  box-shadow:0 8px 28px #087de544;
-}
-.brand b {display:block;font-size:15px;letter-spacing:2px}
-.brand small {display:block;color:var(--cyan);font-size:9px;letter-spacing:3px}
-.links {display:flex;gap:25px;color:var(--muted);font-size:13px}
-.links a:hover {color:white}
-.pill {
-  padding:11px 17px;border-radius:10px;
-  background:linear-gradient(100deg,#0878e8,#12b9df);
-  font-size:12px;font-weight:700;
-}
-.hero {padding:105px 0 75px}
-.eyebrow {
-  display:inline-flex;align-items:center;gap:9px;
-  padding:8px 13px;border:1px solid #42d9ff44;
-  background:#42d9ff0c;border-radius:40px;
-  color:var(--cyan);font-size:10px;letter-spacing:1.8px;
-}
-.led {width:7px;height:7px;border-radius:50%;background:var(--cyan)}
-h1 {
-  font-size:clamp(42px,7vw,78px);
-  line-height:1.04;letter-spacing:-3px;margin:25px 0 20px;
-}
-h1 span {
-  background:linear-gradient(90deg,#168cff,#54e6ff);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.lead {max-width:620px;color:var(--muted);font-size:16px;line-height:1.9}
-.actions {display:flex;gap:13px;flex-wrap:wrap;margin-top:30px}
-.btn {
-  display:inline-flex;align-items:center;justify-content:center;
-  padding:14px 20px;border-radius:11px;
-  font-size:13px;font-weight:700;transition:.2s;
-}
-.btn:hover {transform:translateY(-2px)}
-.primary {background:linear-gradient(100deg,#0878e8,#12b9df)}
-.secondary {border:1px solid var(--line);background:#ffffff08}
-.metrics {
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:14px;margin-top:65px;
-}
-.metric,.card,.panel {
-  border:1px solid var(--line);
-  background:linear-gradient(145deg,#10243a,#0a1727);
-  border-radius:16px;
-}
-.metric {padding:22px}
-.metric strong {display:block;font-size:18px}
-.metric span {color:var(--muted);font-size:12px}
-section {padding:65px 0}
-.kicker {color:var(--cyan);font-size:10px;letter-spacing:2px}
-.heading {font-size:32px;letter-spacing:-1px;margin:10px 0}
-.sub {color:var(--muted);font-size:14px;max-width:660px;line-height:1.85}
-.cards {
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:16px;margin-top:28px;
-}
-.card {padding:25px;transition:.22s}
-.card:hover {transform:translateY(-4px);border-color:#42d9ff66}
-.ico {
-  width:42px;height:42px;display:grid;place-items:center;
-  border-radius:12px;background:#168cff20;
-  color:var(--cyan);font-size:21px;margin-bottom:18px;
-}
-.card h3 {font-size:17px;margin:0 0 9px}
-.card p {font-size:13px;color:var(--muted);line-height:1.8}
-.market {
-  margin-top:25px;padding:27px;
-  border:1px solid var(--line);border-radius:17px;
-  background:linear-gradient(120deg,#10243a,#0a1727);
-}
-.market-top {
-  display:flex;justify-content:space-between;
-  gap:15px;align-items:flex-start;flex-wrap:wrap;
-}
-.market-title {font-weight:700;font-size:18px}
-.market-caption {color:var(--muted);font-size:12px;margin-top:5px}
-.tag {
-  color:var(--cyan);border:1px solid #42d9ff44;
-  border-radius:8px;padding:7px 10px;font-size:10px;letter-spacing:1px;
-}
-.market-note {
-  border-top:1px solid var(--line);padding-top:17px;
-  margin-top:20px;color:var(--muted);font-size:13px;line-height:1.8;
-}
-.about {
-  display:grid;grid-template-columns:1.1fr .9fr;
-  gap:25px;align-items:center;margin-top:25px;
-}
-.points {display:grid;gap:14px;margin-top:22px}
-.point {display:flex;gap:12px;color:var(--muted);font-size:13px}
-.check {color:var(--cyan);font-size:17px}
-.panel {padding:28px}
-.panel h3 {margin:0 0 12px;font-size:20px}
-.panel p {margin:0;color:var(--muted);font-size:13px;line-height:1.9}
-.contactbox {
-  text-align:center;padding:52px 24px;
-  border:1px solid #42d9ff33;border-radius:20px;
-  background:radial-gradient(ellipse at top,#168cff24,transparent 65%),#0c1a2b;
-}
-.contactbox h2 {font-size:30px;margin:9px 0}
-.contactbox p {color:var(--muted);font-size:14px;max-width:520px;margin:auto}
-.contactbox .btn {margin-top:23px}
-footer {margin-top:45px;border-top:1px solid var(--line);padding:25px 0 35px}
-.foot {display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
-.footnote {color:var(--muted);font-size:11px;margin-top:18px;line-height:1.8}
-@media(max-width:760px) {
-  .nav {height:68px}
-  .links {display:none}
-  .pill {padding:10px 12px;font-size:11px}
-  .hero {padding:75px 0 50px}
-  h1 {letter-spacing:-2px}
-  .metrics,.cards {grid-template-columns:1fr}
-  .about {grid-template-columns:1fr}
-  section {padding:48px 0}
-  .heading {font-size:27px}
-  .contactbox h2 {font-size:25px}
-}
+:root{--bg:#07111f;--panel:#0d1b2c;--blue:#168cff;--cyan:#42d9ff;--text:#f2f7ff;--muted:#91a5bb;--line:rgba(145,190,230,.15)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:radial-gradient(ellipse at 80% 0%,rgba(18,117,220,.16),transparent 34%),var(--bg);color:var(--text);font-family:Arial,sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1120px,90%);margin:auto}
+header{position:sticky;top:0;z-index:10;background:rgba(7,17,31,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:12px}
+.mark{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(145deg,#36c9ff,#0864cf);font-size:25px;font-weight:900;font-style:italic;box-shadow:0 8px 28px #087de544}
+.brand b{display:block;font-size:15px;letter-spacing:2px}
+.brand small{display:block;color:var(--cyan);font-size:9px;letter-spacing:3px}
+.links{display:flex;gap:25px;color:var(--muted);font-size:13px}
+.links a:hover{color:white}
+.pill{padding:11px 17px;border-radius:10px;background:linear-gradient(100deg,#0878e8,#12b9df);font-size:12px;font-weight:700}
+.hero{padding:105px 0 75px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;padding:8px 13px;border:1px solid #42d9ff44;background:#42d9ff0c;border-radius:40px;color:var(--cyan);font-size:10px;letter-spacing:1.8px}
+.led{width:7px;height:7px;border-radius:50%;background:var(--cyan)}
+h1{font-size:clamp(42px,7vw,78px);line-height:1.04;letter-spacing:-3px;margin:25px 0 20px}
+h1 span{background:linear-gradient(90deg,#168cff,#54e6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{max-width:620px;color:var(--muted);font-size:16px;line-height:1.9}
+.actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:30px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 20px;border-radius:11px;font-size:13px;font-weight:700;transition:.2s}
+.btn:hover{transform:translateY(-2px)}
+.primary{background:linear-gradient(100deg,#0878e8,#12b9df)}
+.secondary{border:1px solid var(--line);background:#ffffff08}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:65px}
+.metric,.card,.panel{border:1px solid var(--line);background:linear-gradient(145deg,#10243a,#0a1727);border-radius:16px}
+.metric{padding:22px}
+.metric strong{display:block;font-size:18px}
+.metric span{color:var(--muted);font-size:12px}
+section{padding:65px 0}
+.kicker{color:var(--cyan);font-size:10px;letter-spacing:2px}
+.heading{font-size:32px;letter-spacing:-1px;margin:10px 0}
+.sub{color:var(--muted);font-size:14px;max-width:660px;line-height:1.85}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.card{padding:25px;transition:.22s}
+.card:hover{transform:translateY(-4px);border-color:#42d9ff66}
+.ico{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:#168cff20;color:var(--cyan);font-size:21px;margin-bottom:18px}
+.card h3{font-size:17px;margin:0 0 9px}
+.card p{font-size:13px;color:var(--muted);line-height:1.8}
+.market-dashboard{margin-top:25px;padding:25px;border:1px solid var(--line);border-radius:17px;background:linear-gradient(120deg,#10243a,#0a1727);overflow:hidden}
+.market-top{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;flex-wrap:wrap}
+.market-title{font-weight:700;font-size:18px}
+.market-caption{color:var(--muted);font-size:12px;margin-top:5px}
+.tag{color:var(--cyan);border:1px solid #42d9ff44;border-radius:8px;padding:7px 10px;font-size:10px;letter-spacing:1px}
+.market-tools{display:flex;gap:10px;margin:22px 0 14px}
+.market-tools input,.calc-input{width:100%;min-width:0;background:#071525;border:1px solid var(--line);border-radius:9px;padding:13px 14px;color:var(--text);outline:none;font-size:15px}
+.market-tools input:focus,.calc-input:focus{border-color:var(--cyan)}
+.market-tools button,.period{border:1px solid var(--line);background:#ffffff0a;color:var(--text);border-radius:9px;padding:10px 14px;cursor:pointer}
+.market-tools button:hover,.period:hover,.period.active{border-color:var(--cyan);color:var(--cyan);background:#42d9ff12}
+.market-table-wrap{overflow-x:auto}
+.market-table{width:100%;border-collapse:collapse;min-width:420px;font-size:13px}
+.market-table th{text-align:left;color:var(--muted);font-size:11px;font-weight:500;padding:12px;border-bottom:1px solid var(--line)}
+.market-table td{padding:14px 12px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.market-table tbody tr{cursor:pointer;transition:background .15s}
+.market-table tbody tr:hover,.market-table tbody tr.selected{background:#168cff14}
+.coin-name{font-weight:700}.coin-symbol{color:var(--muted);font-size:11px;margin-left:7px}
+.positive{color:#20c997}.negative{color:#ff6878}
+.chart-panel{margin-top:22px;padding:20px;border:1px solid var(--line);border-radius:13px;background:#07152588}
+.chart-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.chart-heading strong{font-size:17px}
+.chart-periods{display:flex;gap:6px}
+.period{font-size:11px;padding:8px 11px}
+.chart-wrap{height:260px;margin-top:18px;position:relative}
+.chart-wrap canvas{width:100%;height:100%;display:block}
+.market-note{border-top:1px solid var(--line);padding-top:17px;margin-top:20px;color:var(--muted);font-size:12px;line-height:1.8}
+.calculator{margin-top:25px;padding:27px;border:1px solid #42d9ff33;border-radius:17px;background:linear-gradient(145deg,#10243a,#0a1727)}
+.calc-directions{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0}
+.calc-directions button{padding:10px 15px;border:1px solid var(--line);border-radius:9px;background:#ffffff08;color:var(--muted);cursor:pointer}
+.calc-directions button.active{color:var(--cyan);border-color:var(--cyan);background:#42d9ff12}
+.calc-label{display:block;color:var(--muted);font-size:12px;margin:14px 0 7px}
+.calc-result{margin-top:17px;padding:20px;border-radius:12px;background:#071525;border:1px solid var(--line)}
+.calc-result small{color:var(--muted);font-size:12px}
+.calc-result strong{display:block;font-size:clamp(25px,5vw,35px);margin-top:5px;overflow-wrap:anywhere}
+.calc-rate{color:var(--cyan);font-size:12px;margin-top:12px}
+.about{display:grid;grid-template-columns:1.1fr .9fr;gap:25px;align-items:center;margin-top:25px}
+.points{display:grid;gap:14px;margin-top:22px}
+.point{display:flex;gap:12px;color:var(--muted);font-size:13px}
+.check{color:var(--cyan);font-size:17px}
+.panel{padding:28px}
+.panel h3{margin:0 0 12px;font-size:20px}
+.panel p{margin:0;color:var(--muted);font-size:13px;line-height:1.9}
+.contactbox{text-align:center;padding:52px 24px;border:1px solid #42d9ff33;border-radius:20px;background:radial-gradient(ellipse at top,#168cff24,transparent 65%),#0c1a2b}
+.contactbox h2{font-size:30px;margin:9px 0}
+.contactbox p{color:var(--muted);font-size:14px;max-width:520px;margin:auto}
+.contactbox .btn{margin-top:23px}
+footer{margin-top:45px;border-top:1px solid var(--line);padding:25px 0 35px}
+.foot{display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
+.footnote{color:var(--muted);font-size:11px;margin-top:18px;line-height:1.8}
+@media(max-width:760px){.nav{height:68px}.links{display:none}.pill{padding:10px 12px;font-size:11px}.hero{padding:75px 0 50px}h1{letter-spacing:-2px}.metrics,.cards{grid-template-columns:1fr}.about{grid-template-columns:1fr}section{padding:48px 0}.heading{font-size:27px}.contactbox h2{font-size:25px}}
+@media(max-width:600px){.market-dashboard,.calculator{padding:16px}.market-tools{flex-direction:column}.chart-wrap{height:210px}.market-table td{padding:12px 8px;font-size:12px}.market-table th{padding:10px 8px}}
 </style>
 </head>
 <body>
-
 <header>
 <div class="wrap nav">
-  <a class="brand" href="#top">
-    <span class="mark">A</span>
-    <span><b>AQUAMAST</b><small>EXCHANGE</small></span>
-  </a>
-  <nav class="links">
-    <a href="#about">О проекте</a>
-    <a href="#directions">Направления</a>
-    <a href="#market">Рынок</a>
-    <a href="#contacts">Контакты</a>
-  </nav>
-  <a class="pill" href="https://t.me/aquamast" target="_blank" rel="noopener">TELEGRAM ↗</a>
+<a class="brand" href="#top"><span class="mark">A</span><span><b>AQUAMAST</b><small>EXCHANGE</small></span></a>
+<nav class="links">
+<a href="#about">О проекте</a><a href="#calculator">Калькулятор</a><a href="#market">Рынок</a><a href="#contacts">Контакты</a>
+</nav>
+<a class="pill" href="https://t.me/aquamast" target="_blank" rel="noopener">TELEGRAM ↗</a>
 </div>
 </header>
 
 <main id="top">
-
 <section class="hero">
 <div class="wrap">
-  <div class="eyebrow"><span class="led"></span>DIGITAL ASSETS · TECHNOLOGY · INSIGHTS</div>
-  <h1>Цифровые активы.<br><span>Новый взгляд.</span></h1>
-  <p class="lead">
-    AQUAMAST — проект о цифровых активах, финансовых технологиях
-    и развитии современного рынка. Исследуем тенденции, делимся
-    полезной информацией и говорим о безопасности цифровой среды.
-  </p>
-  <div class="actions">
-    <a class="btn primary" href="#about">О проекте</a>
-    <a class="btn secondary" href="https://t.me/aquamast" target="_blank" rel="noopener">Открыть Telegram ↗</a>
-  </div>
-  <div class="metrics">
-    <div class="metric"><strong>Digital Assets</strong><span>Цифровые активы и технологии</span></div>
-    <div class="metric"><strong>Market Insights</strong><span>Обзор рынка и тенденций</span></div>
-    <div class="metric"><strong>Security First</strong><span>Осознанность и безопасность</span></div>
-  </div>
+<div class="eyebrow"><span class="led"></span>DIGITAL ASSETS · TECHNOLOGY · INSIGHTS</div>
+<h1>Цифровые активы.<br><span>Новый взгляд.</span></h1>
+<p class="lead">AQUAMAST — проект о цифровых активах, финансовых технологиях и развитии современного рынка. Исследуем тенденции, делимся полезной информацией и говорим о безопасности цифровой среды.</p>
+<div class="actions">
+<a class="btn primary" href="#market">Обзор рынка</a>
+<a class="btn secondary" href="https://t.me/aquamast" target="_blank" rel="noopener">Открыть Telegram ↗</a>
+</div>
+<div class="metrics">
+<div class="metric"><strong>Digital Assets</strong><span>Цифровые активы и технологии</span></div>
+<div class="metric"><strong>Market Insights</strong><span>Обзор рынка и тенденций</span></div>
+<div class="metric"><strong>Security First</strong><span>Осознанность и безопасность</span></div>
+</div>
 </div>
 </section>
 
-<section id="directions">
+<section id="calculator">
 <div class="wrap">
-  <div class="kicker">OUR DIRECTIONS</div>
-  <h2 class="heading">Направления проекта</h2>
-  <p class="sub">Информационные материалы о ключевых темах цифровой экономики — без сложных терминов и необоснованных обещаний.</p>
-  <div class="cards">
-    <article class="card">
-      <div class="ico">₿</div>
-      <h3>Криптовалюты</h3>
-      <p>Базовые понятия, новости и аналитические материалы о рынке цифровых активов.</p>
-    </article>
-    <article class="card">
-      <div class="ico">⇄</div>
-      <h3>Финансовые технологии</h3>
-      <p>Обзор цифровых инструментов, платёжной инфраструктуры и технологических решений.</p>
-    </article>
-    <article class="card">
-      <div class="ico">◇</div>
-      <h3>Безопасность</h3>
-      <p>Защита данных, проверка адресов и ответственное использование цифровых сервисов.</p>
-    </article>
-  </div>
+<div class="kicker">CURRENCY CALCULATOR</div>
+<h2 class="heading">Калькулятор RUB / USDT</h2>
+<p class="sub">Ориентировочный пересчёт валют по справочному курсу USD/RUB.</p>
+<div class="calculator">
+<div class="market-top">
+<div><div class="market-title">Конвертер валют</div><div class="market-caption" id="rateStatus">Получаем справочный курс…</div></div>
+<span class="tag">REFERENCE RATE</span>
+</div>
+<div class="calc-directions">
+<button class="active" id="rubToUsdt" type="button">RUB → USDT</button>
+<button id="usdtToRub" type="button">USDT → RUB</button>
+</div>
+<label class="calc-label" id="amountLabel" for="calcAmount">Сумма в RUB</label>
+<input class="calc-input" id="calcAmount" type="number" min="0" step="any" placeholder="Введите сумму" value="10000">
+<div class="calc-result">
+<small>Ориентировочный результат</small>
+<strong id="calcResult">Загрузка…</strong>
+<div class="calc-rate" id="calcRate">Курс загружается</div>
+</div>
+<p class="market-note">Расчёт справочный и не является предложением обмена. USDT не всегда равен одному доллару США; фактические курсы и комиссии могут отличаться.</p>
+</div>
 </div>
 </section>
 
 <section id="market">
 <div class="wrap">
-  <div class="kicker">MARKET OVERVIEW</div>
-  <h2 class="heading">Обзор цифрового рынка</h2>
-  <div class="market">
-    <div class="market-top">
-      <div><div class="market-title">RUB / USDT</div><div class="market-caption">Информационная тема проекта</div></div>
-      <span class="tag">MARKET INFORMATION</span>
-    </div>
-    <div class="market-note">
-      Этот блок посвящён общему ознакомлению с валютными парами
-      и цифровыми активами. Котировки в реальном времени здесь
-      не отображаются. Перед принятием финансовых решений самостоятельно
-      проверяйте актуальные данные и учитывайте возможные риски.
-    </div>
-  </div>
+<div class="kicker">LIVE MARKET DATA</div>
+<h2 class="heading">Крипторынок</h2>
+<p class="sub">Котировки популярных цифровых активов и история изменения цены.</p>
+<div class="market-dashboard">
+<div class="market-top">
+<div><div class="market-title">Рыночная сводка</div><div class="market-caption" id="marketUpdated">Загрузка котировок…</div></div>
+<span class="tag">PUBLIC MARKET DATA</span>
+</div>
+<div class="market-tools">
+<input id="coinSearch" type="search" placeholder="Поиск актива: BTC, ETH…" aria-label="Поиск актива">
+<button id="refreshMarket" type="button">Обновить</button>
+</div>
+<div class="market-table-wrap">
+<table class="market-table">
+<thead><tr><th>Актив</th><th>Цена, USDT</th><th>Изменение за 24 ч.</th></tr></thead>
+<tbody id="marketRows"><tr><td colspan="3">Загружаем данные…</td></tr></tbody>
+</table>
+</div>
+<div class="chart-panel">
+<div class="chart-heading">
+<div><strong id="chartCoinName">BTC / USDT</strong><div class="market-caption" id="chartPrice">Загрузка…</div></div>
+<div class="chart-periods">
+<button class="period active" data-period="24h">24H</button>
+<button class="period" data-period="7d">7D</button>
+<button class="period" data-period="30d">30D</button>
+</div>
+</div>
+<div class="chart-wrap"><canvas id="priceChart" aria-label="График исторической цены" role="img"></canvas></div>
+<div class="market-caption" id="chartStatus">Загружаем историю цены…</div>
+</div>
+<p class="market-note">Данные предоставляются публичным API Binance и могут быть недоступны или обновляться с задержкой. Это информационный обзор, а не торговый терминал и финансовая рекомендация.</p>
+</div>
+</div>
+</section>
+
+<section id="directions">
+<div class="wrap">
+<div class="kicker">OUR DIRECTIONS</div>
+<h2 class="heading">Направления проекта</h2>
+<p class="sub">Информационные материалы о ключевых темах цифровой экономики.</p>
+<div class="cards">
+<article class="card"><div class="ico">₿</div><h3>Криптовалюты</h3><p>Базовые понятия, новости и аналитические материалы о рынке цифровых активов.</p></article>
+<article class="card"><div class="ico">⇄</div><h3>Финансовые технологии</h3><p>Обзор цифровых инструментов, платёжной инфраструктуры и технологических решений.</p></article>
+<article class="card"><div class="ico">◇</div><h3>Безопасность</h3><p>Защита данных, проверка адресов и ответственное использование цифровых сервисов.</p></article>
+</div>
 </div>
 </section>
 
 <section id="about">
 <div class="wrap">
-  <div class="kicker">ABOUT AQUAMAST</div>
-  <h2 class="heading">Технологии. Прозрачность. Развитие.</h2>
-  <div class="about">
-    <div>
-      <p class="sub">
-        AQUAMAST объединяет интерес к цифровым активам, современным
-        технологиям и финансовой грамотности. Наша цель — делать
-        информацию о быстро меняющемся рынке понятнее.
-      </p>
-      <div class="points">
-        <div class="point"><span class="check">✦</span><span>Понятная информация о цифровом рынке</span></div>
-        <div class="point"><span class="check">✦</span><span>Внимание к безопасности и проверке данных</span></div>
-        <div class="point"><span class="check">✦</span><span>Новости и обновления проекта</span></div>
-      </div>
-    </div>
-    <div class="panel">
-      <h3>AQUAMAST EXCHANGE</h3>
-      <p>
-        Современная цифровая среда с акцентом на удобство,
-        аккуратный дизайн и ответственное отношение
-        к финансовым технологиям.
-      </p>
-    </div>
-  </div>
+<div class="kicker">ABOUT AQUAMAST</div>
+<h2 class="heading">Технологии. Прозрачность. Развитие.</h2>
+<div class="about">
+<div>
+<p class="sub">AQUAMAST объединяет интерес к цифровым активам, современным технологиям и финансовой грамотности. Наша цель — делать информацию о быстро меняющемся рынке понятнее.</p>
+<div class="points">
+<div class="point"><span class="check">✦</span><span>Понятная информация о цифровом рынке</span></div>
+<div class="point"><span class="check">✦</span><span>Внимание к безопасности и проверке данных</span></div>
+<div class="point"><span class="check">✦</span><span>Новости и обновления проекта</span></div>
+</div>
+</div>
+<div class="panel"><h3>AQUAMAST EXCHANGE</h3><p>Современная цифровая среда с акцентом на удобство, аккуратный дизайн и ответственное отношение к финансовым технологиям.</p></div>
+</div>
 </div>
 </section>
 
 <section id="contacts">
 <div class="wrap">
-  <div class="contactbox">
-    <div class="kicker">STAY CONNECTED</div>
-    <h2>На связи с AQUAMAST</h2>
-    <p>Новости проекта, публикации и обратная связь — в нашем Telegram-канале.</p>
-    <a class="btn primary" href="https://t.me/aquamast" target="_blank" rel="noopener">Перейти в Telegram ↗</a>
-  </div>
+<div class="contactbox">
+<div class="kicker">STAY CONNECTED</div>
+<h2>На связи с AQUAMAST</h2>
+<p>Новости проекта, публикации и обратная связь — в нашем Telegram-канале.</p>
+<a class="btn primary" href="https://t.me/aquamast" target="_blank" rel="noopener">Перейти в Telegram ↗</a>
+</div>
 </div>
 </section>
-
 </main>
 
 <footer>
 <div class="wrap">
-  <div class="foot">
-    <a class="brand" href="#top">
-      <span class="mark">A</span>
-      <span><b>AQUAMAST</b><small>EXCHANGE</small></span>
-    </a>
-    <span style="color:#91a5bb;font-size:11px">© 2026 AQUAMAST</span>
-  </div>
-  <p class="footnote">
-    Информационный сайт. Материалы не являются индивидуальной финансовой
-    рекомендацией или публичной офертой. Сайт предоставляет функции
-    проведения обменных операций и приёма платежей.
-  </p>
+<div class="foot">
+<a class="brand" href="#top"><span class="mark">A</span><span><b>AQUAMAST</b><small>EXCHANGE</small></span></a>
+<span style="color:#91a5bb;font-size:11px">© 2026 AQUAMAST</span>
+</div>
+<p class="footnote">Информационный сайт. Материалы являются индивидуальной финансовой рекомендацией или публичной офертой. Сайт проводит обменные операции и принимает платежи.</p>
 </div>
 </footer>
 
+<script>
+(() => {
+const assets=[
+{symbol:"BTCUSDT",name:"Bitcoin",code:"BTC"},
+{symbol:"ETHUSDT",name:"Ethereum",code:"ETH"},
+{symbol:"BNBUSDT",name:"BNB",code:"BNB"},
+{symbol:"SOLUSDT",name:"Solana",code:"SOL"},
+{symbol:"XRPUSDT",name:"XRP",code:"XRP"},
+{symbol:"DOGEUSDT",name:"Dogecoin",code:"DOGE"},
+{symbol:"ADAUSDT",name:"Cardano",code:"ADA"},
+{symbol:"TRXUSDT",name:"TRON",code:"TRX"}
+];
+const $=id=>document.getElementById(id);
+const fmt=n=>Number(n).toLocaleString("ru-RU",{maximumFractionDigits:n<1?6:2});
+let selected="BTCUSDT",period="24h",tickers=[],usdRub=null,calcDirection="rub";
+
+async function loadMarket(){
+$("marketUpdated").textContent="Обновляем котировки…";
+try{
+const symbols=encodeURIComponent(JSON.stringify(assets.map(a=>a.symbol)));
+const res=await fetch("https://api.binance.com/api/v3/ticker/24hr?symbols="+symbols);
+if(!res.ok)throw Error("API error");
+tickers=await res.json();
+renderRows();
+$("marketUpdated").textContent="Обновлено: "+new Date().toLocaleTimeString("ru-RU")+" · источник: Binance";
+loadChart();
+}catch(e){
+$("marketUpdated").textContent="Не удалось загрузить котировки. Попробуйте позже.";
+$("marketRows").innerHTML='<tr><td colspan="3">Рыночные данные временно недоступны.</td></tr>';
+$("chartStatus").textContent="График временно недоступен.";
+}
+}
+
+function renderRows(){
+const q=$("coinSearch").value.trim().toLowerCase();
+const rows=assets.filter(a=>(a.name+" "+a.code).toLowerCase().includes(q));
+$("marketRows").innerHTML=rows.map(a=>{
+const t=tickers.find(x=>x.symbol===a.symbol);
+if(!t)return "";
+const change=Number(t.priceChangePercent);
+return '<tr data-symbol="'+a.symbol+'" class="'+(selected===a.symbol?"selected":"")+'"><td><span class="coin-name">'+a.name+'</span><span class="coin-symbol">'+a.code+'</span></td><td>'+fmt(t.lastPrice)+'</td><td class="'+(change>=0?"positive":"negative")+'">'+(change>0?"+":"")+change.toFixed(2)+'%</td></tr>';
+}).join("")||'<tr><td colspan="3">Ничего не найдено.</td></tr>';
+document.querySelectorAll("#marketRows tr[data-symbol]").forEach(row=>row.addEventListener("click",()=>{
+selected=row.dataset.symbol;renderRows();loadChart();
+}));
+}
+
+async function loadChart(){
+const a=assets.find(x=>x.symbol===selected),t=tickers.find(x=>x.symbol===selected);
+$("chartCoinName").textContent=a.code+" / USDT";
+$("chartPrice").textContent=t?"Цена: "+fmt(t.lastPrice)+" USDT":"";
+$("chartStatus").textContent="Загружаем историю цены…";
+const cfg=period==="24h"?{interval:"15m",limit:96}:period==="7d"?{interval:"1h",limit:168}:{interval:"4h",limit:180};
+try{
+const res=await fetch("https://api.binance.com/api/v3/klines?symbol="+selected+"&interval="+cfg.interval+"&limit="+cfg.limit);
+if(!res.ok)throw Error("API error");
+const candles=await res.json();
+drawChart(candles.map(c=>Number(c[4])));
+$("chartStatus").textContent="Исторические значения · период "+period.toUpperCase()+" · источник: Binance";
+}catch(e){$("chartStatus").textContent="История цены временно недоступна.";}
+}
+
+function drawChart(values){
+if(!values.length)return;
+const canvas=$("priceChart"),rect=canvas.getBoundingClientRect(),dpr=window.devicePixelRatio||1;
+canvas.width=Math.max(1,Math.floor(rect.width*dpr));
+canvas.height=Math.max(1,Math.floor(rect.height*dpr));
+const ctx=canvas.getContext("2d");ctx.setTransform(dpr,0,0,dpr,0,0);
+const w=rect.width,h=rect.height,pad=12,min=Math.min(...values),max=Math.max(...values),range=max-min||1;
+ctx.clearRect(0,0,w,h);
+ctx.strokeStyle="rgba(145,190,230,.13)";
+for(let i=0;i<4;i++){const y=pad+(h-pad*2)*i/3;ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(w-pad,y);ctx.stroke();}
+const pts=values.map((v,i)=>({x:pad+(w-pad*2)*i/Math.max(1,values.length-1),y:h-pad-(v-min)/range*(h-pad*2)}));
+const grad=ctx.createLinearGradient(0,pad,0,h-pad);
+grad.addColorStop(0,"rgba(22,140,255,.28)");grad.addColorStop(1,"rgba(22,140,255,0)");
+ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
+ctx.lineTo(pts[pts.length-1].x,h-pad);ctx.lineTo(pts[0].x,h-pad);ctx.closePath();ctx.fillStyle=grad;ctx.fill();
+ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
+ctx.strokeStyle="#42d9ff";ctx.lineWidth=2;ctx.stroke();
+}
+
+async function loadRubRate(){
+$("rateStatus").textContent="Получаем справочный курс USD/RUB…";
+try{
+const res=await fetch("https://open.er-api.com/v6/latest/USD");
+if(!res.ok)throw Error("Rate API error");
+const data=await res.json();
+if(data.result!=="success"||!data.rates.RUB)throw Error("No RUB rate");
+usdRub=Number(data.rates.RUB);
+$("rateStatus").textContent="Справочный USD/RUB: "+fmt(usdRub)+" · обновлено "+new Date(data.time_last_update_utc).toLocaleString("ru-RU");
+updateCalculator();
+}catch(e){
+$("rateStatus").textContent="Не удалось получить справочный курс. Попробуйте позже.";
+$("calcRate").textContent="Курс временно недоступен.";
+}
+}
+
+function updateCalculator(){
+const amount=Math.max(0,Number($("calcAmount").value)||0);
+if(!usdRub){$("calcResult").textContent="Нет данных";return;}
+if(calcDirection==="rub"){
+$("amountLabel").textContent="Сумма в RUB";
+$("calcResult").textContent=fmt(amount/usdRub)+" USDT";
+$("calcRate").textContent="Ориентир: 1 USDT ≈ "+fmt(usdRub)+" RUB";
+}else{
+$("amountLabel").textContent="Сумма в USDT";
+$("calcResult").textContent=fmt(amount*usdRub)+" RUB";
+$("calcRate").textContent="Ориентир: 1 USDT ≈ "+fmt(usdRub)+" RUB";
+}
+}
+
+function setDirection(direction){
+calcDirection=direction;
+$("rubToUsdt").classList.toggle("active",direction==="rub");
+$("usdtToRub").classList.toggle("active",direction==="usdt");
+$("calcAmount").value="";
+$("calcAmount").placeholder=direction==="rub"?"Введите сумму в RUB":"Введите сумму в USDT";
+updateCalculator();
+}
+
+$("coinSearch").addEventListener("input",renderRows);
+$("refreshMarket").addEventListener("click",loadMarket);
+$("calcAmount").addEventListener("input",updateCalculator);
+$("rubToUsdt").addEventListener("click",()=>setDirection("rub"));
+$("usdtToRub").addEventListener("click",()=>setDirection("usdt"));
+document.querySelectorAll(".period").forEach(btn=>btn.addEventListener("click",()=>{
+period=btn.dataset.period;
+document.querySelectorAll(".period").forEach(b=>b.classList.toggle("active",b===btn));
+loadChart();
+}));
+window.addEventListener("resize",()=>{if(tickers.length)loadChart();});
+loadMarket();
+loadRubRate();
+setInterval(loadMarket,60000);
+setInterval(loadRubRate,900000);
+})();
+</script>
 </body>
 </html>
