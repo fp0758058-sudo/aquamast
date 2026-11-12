@@ -1,278 +1,308 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#07111f">
-  <meta name="description" content="Aquamast — демонстрационный проект с наглядным калькулятором курса USD/RUB.">
-  <title>Aquamast — цифровой обмен, демо</title>
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #07111f;
-      --panel: rgba(15, 29, 48, .82);
-      --panel2: #101f33;
-      --line: rgba(157, 190, 225, .15);
-      --text: #eef6ff;
-      --muted: #9aadc3;
-      --blue: #54b8ff;
-      --cyan: #73e0e8;
-      --max: 1120px;
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      min-width: 320px;
-      background:
-        radial-gradient(ellipse at 78% 7%, rgba(34, 128, 196, .20), transparent 34rem),
-        radial-gradient(ellipse at 8% 44%, rgba(30, 91, 145, .14), transparent 28rem),
-        var(--bg);
-      color: var(--text);
-      font: 16px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-    a { color: inherit; text-decoration: none; }
-    button, input { font: inherit; }
-    .wrap { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
-    .topbar {
-      position: sticky; top: 0; z-index: 10;
-      border-bottom: 1px solid var(--line);
-      background: rgba(7, 17, 31, .78);
-      backdrop-filter: blur(18px);
-    }
-    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 750; letter-spacing: .02em; }
-    .mark {
-      width: 40px; height: 40px; display: grid; place-items: center;
-      border: 1px solid rgba(115,224,232,.48); border-radius: 13px;
-      background: linear-gradient(145deg, rgba(84,184,255,.22), rgba(115,224,232,.07));
-      box-shadow: 0 0 28px rgba(84,184,255,.12);
-    }
-    .mark svg { width: 25px; height: 25px; }
-    .brand-name { font-size: 18px; }
-    .navlinks { display: flex; align-items: center; gap: 26px; color: var(--muted); font-size: 14px; }
-    .navlinks a:hover, .text-link:hover { color: var(--text); }
-    .nav-cta, .button {
-      display: inline-flex; justify-content: center; align-items: center; gap: 9px;
-      border: 1px solid rgba(84,184,255,.38); border-radius: 12px;
-      background: linear-gradient(135deg, #238bd2, #1768a8);
-      color: white; font-weight: 700; padding: 11px 17px;
-      box-shadow: 0 8px 26px rgba(26, 122, 190, .18);
-      cursor: pointer; transition: transform .18s ease, filter .18s ease;
-    }
-    .nav-cta:hover, .button:hover { transform: translateY(-1px); filter: brightness(1.08); }
-    .hero { padding: 88px 0 72px; }
-    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 54px; align-items: center; }
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 9px; padding: 7px 11px;
-      border: 1px solid var(--line); border-radius: 999px; color: #b9d9f3;
-      background: rgba(17, 39, 62, .62); font-size: 12px; letter-spacing: .11em; text-transform: uppercase;
-    }
-    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
-    h1 { margin: 22px 0 18px; font-size: clamp(42px, 6vw, 68px); line-height: 1.04; letter-spacing: -.045em; }
-    .gradient { background: linear-gradient(100deg, #fff 8%, #a7dfff 52%, #75e0e5 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .lead { max-width: 560px; color: var(--muted); font-size: 18px; line-height: 1.75; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 30px; }
-    .button.secondary { background: rgba(18, 36, 57, .75); border-color: var(--line); box-shadow: none; color: #dcecff; }
-    .fine { margin-top: 17px; color: #8196ad; font-size: 12px; }
-    .visual {
-      position: relative; padding: 28px; border: 1px solid rgba(120,180,225,.22);
-      border-radius: 25px; background: linear-gradient(150deg, rgba(18,39,63,.92), rgba(8,21,37,.92));
-      box-shadow: 0 28px 90px rgba(0,0,0,.28), inset 0 1px rgba(255,255,255,.04);
-      overflow: hidden;
-    }
-    .visual:before { content:""; position:absolute; width:250px; height:250px; right:-100px; top:-120px; border-radius:50%; border:1px solid rgba(84,184,255,.22); box-shadow:0 0 0 28px rgba(84,184,255,.035),0 0 0 58px rgba(84,184,255,.025); }
-    .visual-head { display:flex; justify-content:space-between; align-items:center; color:var(--muted); font-size:13px; }
-    .live-pill { color:#9ce7d9; border:1px solid rgba(115,224,200,.25); background:rgba(48,150,129,.10); padding:5px 9px; border-radius:99px; font-size:11px; }
-    .visual-rate { margin: 35px 0 8px; font-size: clamp(32px, 4vw, 47px); font-weight: 750; letter-spacing: -.04em; }
-    .visual-sub { color:var(--muted); font-size:13px; }
-    .spark { height:110px; margin-top:28px; display:flex; align-items:end; gap:8px; }
-    .spark span { flex:1; border-radius:6px 6px 2px 2px; background:linear-gradient(180deg, rgba(84,184,255,.85), rgba(84,184,255,.08)); }
-    .spark span:nth-child(1){height:35%}.spark span:nth-child(2){height:43%}.spark span:nth-child(3){height:38%}.spark span:nth-child(4){height:58%}.spark span:nth-child(5){height:50%}.spark span:nth-child(6){height:68%}.spark span:nth-child(7){height:60%}.spark span:nth-child(8){height:82%}.spark span:nth-child(9){height:73%}.spark span:nth-child(10){height:94%}.spark span:nth-child(11){height:86%}.spark span:nth-child(12){height:100%}
-    .visual-foot { display:flex; justify-content:space-between; margin-top:12px; color:#8196ad; font-size:11px; }
-    section { padding: 68px 0; }
-    .section-kicker { color:var(--cyan); font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
-    h2 { margin:10px 0 14px; font-size:clamp(29px,4vw,42px); line-height:1.15; letter-spacing:-.035em; }
-    .section-intro { max-width:650px; color:var(--muted); }
-    .calc-grid { display:grid; grid-template-columns: .9fr 1.1fr; gap:28px; align-items:stretch; margin-top:32px; }
-    .card { border:1px solid var(--line); border-radius:20px; background:var(--panel); padding:27px; }
-    .card h3 { margin:0 0 8px; font-size:20px; }
-    .muted { color:var(--muted); }
-    .field-label { display:block; margin:22px 0 9px; color:#b6c7d9; font-size:13px; }
-    .input-wrap { display:flex; align-items:center; gap:10px; border:1px solid rgba(139,178,214,.23); border-radius:13px; background:rgba(4,14,26,.55); padding:0 15px; }
-    .input-wrap:focus-within { border-color:rgba(84,184,255,.7); box-shadow:0 0 0 3px rgba(84,184,255,.10); }
-    input { width:100%; min-width:0; padding:15px 0; border:0; outline:0; color:var(--text); background:transparent; font-size:19px; }
-    .currency { color:#8ea6bf; font-size:13px; font-weight:700; }
-    .result { margin-top:20px; padding:20px; border:1px solid rgba(84,184,255,.2); border-radius:15px; background:linear-gradient(135deg,rgba(31,103,155,.18),rgba(18,48,70,.18)); }
-    .result-label { color:var(--muted); font-size:12px; }
-    .result-value { margin-top:5px; font-size:clamp(28px,4vw,38px); font-weight:750; letter-spacing:-.035em; overflow-wrap:anywhere; }
-    .rate-note { margin-top:15px; color:#8da4bb; font-size:12px; }
-    .info-list { display:grid; gap:15px; margin-top:24px; }
-    .info-item { display:flex; gap:13px; align-items:flex-start; }
-    .check { flex:0 0 25px; width:25px; height:25px; display:grid; place-items:center; border-radius:8px; background:rgba(84,184,255,.12); color:#85d1ff; font-weight:800; }
-    .info-item strong { display:block; margin-bottom:3px; font-size:14px; }
-    .info-item span { color:var(--muted); font-size:13px; }
-    .features { display:grid; grid-template-columns:repeat(3,1fr); gap:17px; margin-top:30px; }
-    .feature { padding:23px; border:1px solid var(--line); border-radius:18px; background:rgba(13,29,47,.68); }
-    .feature-icon { width:38px; height:38px; display:grid; place-items:center; border:1px solid rgba(84,184,255,.2); border-radius:12px; color:#8bd4ff; background:rgba(84,184,255,.09); font-size:18px; }
-    .feature h3 { margin:16px 0 7px; font-size:17px; }
-    .feature p { margin:0; color:var(--muted); font-size:13px; line-height:1.7; }
-    .notice { margin-top:26px; padding:20px 22px; border:1px solid rgba(231,184,103,.24); border-radius:16px; background:rgba(123,83,26,.10); color:#d9c39c; font-size:13px; }
-    .notice strong { color:#f0d7a7; }
-    .contact { display:flex; align-items:center; justify-content:space-between; gap:25px; padding:30px; border:1px solid rgba(84,184,255,.22); border-radius:22px; background:linear-gradient(110deg,rgba(23,69,103,.45),rgba(13,30,49,.85)); }
-    .contact p { margin:7px 0 0; color:var(--muted); font-size:14px; }
-    footer { padding:28px 0 38px; border-top:1px solid var(--line); color:#8095ab; font-size:12px; }
-    .footer-row { display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; }
-    @media (max-width: 800px) {
-      .hero { padding:60px 0 45px; }
-      .hero-grid, .calc-grid { grid-template-columns:1fr; }
-      .hero-grid { gap:35px; }
-      .features { grid-template-columns:1fr; }
-      .navlinks { display:none; }
-      .visual { max-width:560px; }
-    }
-    @media (max-width: 520px) {
-      .wrap { width:min(100% - 28px, var(--max)); }
-      .nav { min-height:66px; }
-      .nav-cta { padding:9px 12px; font-size:13px; }
-      .hero { padding-top:48px; }
-      .lead { font-size:16px; }
-      .visual, .card { padding:21px; }
-      section { padding:52px 0; }
-      .contact { align-items:flex-start; flex-direction:column; padding:23px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07111f">
+<title>AQUAMAST EXCHANGE</title>
+<style>
+:root {
+  --bg:#07111f;
+  --panel:#0d1b2c;
+  --blue:#168cff;
+  --cyan:#42d9ff;
+  --text:#f2f7ff;
+  --muted:#91a5bb;
+  --line:rgba(145,190,230,.15);
+}
+* {box-sizing:border-box;margin:0;padding:0}
+html {scroll-behavior:smooth}
+body {
+  background:radial-gradient(ellipse at 80% 0%,rgba(18,117,220,.16),transparent 34%),var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+  line-height:1.6;
+}
+a {color:inherit;text-decoration:none}
+.wrap {width:min(1120px,90%);margin:auto}
+header {
+  position:sticky;top:0;z-index:10;
+  background:rgba(7,17,31,.94);
+  border-bottom:1px solid var(--line);
+}
+.nav {
+  height:78px;display:flex;
+  align-items:center;justify-content:space-between;gap:20px;
+}
+.brand {display:flex;align-items:center;gap:12px}
+.mark {
+  width:42px;height:42px;border-radius:13px;
+  display:grid;place-items:center;
+  background:linear-gradient(145deg,#36c9ff,#0864cf);
+  font-size:25px;font-weight:900;font-style:italic;
+  box-shadow:0 8px 28px #087de544;
+}
+.brand b {display:block;font-size:15px;letter-spacing:2px}
+.brand small {display:block;color:var(--cyan);font-size:9px;letter-spacing:3px}
+.links {display:flex;gap:25px;color:var(--muted);font-size:13px}
+.links a:hover {color:white}
+.pill {
+  padding:11px 17px;border-radius:10px;
+  background:linear-gradient(100deg,#0878e8,#12b9df);
+  font-size:12px;font-weight:700;
+}
+.hero {padding:105px 0 75px}
+.eyebrow {
+  display:inline-flex;align-items:center;gap:9px;
+  padding:8px 13px;border:1px solid #42d9ff44;
+  background:#42d9ff0c;border-radius:40px;
+  color:var(--cyan);font-size:10px;letter-spacing:1.8px;
+}
+.led {width:7px;height:7px;border-radius:50%;background:var(--cyan)}
+h1 {
+  font-size:clamp(42px,7vw,78px);
+  line-height:1.04;letter-spacing:-3px;margin:25px 0 20px;
+}
+h1 span {
+  background:linear-gradient(90deg,#168cff,#54e6ff);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.lead {max-width:620px;color:var(--muted);font-size:16px;line-height:1.9}
+.actions {display:flex;gap:13px;flex-wrap:wrap;margin-top:30px}
+.btn {
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:14px 20px;border-radius:11px;
+  font-size:13px;font-weight:700;transition:.2s;
+}
+.btn:hover {transform:translateY(-2px)}
+.primary {background:linear-gradient(100deg,#0878e8,#12b9df)}
+.secondary {border:1px solid var(--line);background:#ffffff08}
+.metrics {
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:14px;margin-top:65px;
+}
+.metric,.card,.panel {
+  border:1px solid var(--line);
+  background:linear-gradient(145deg,#10243a,#0a1727);
+  border-radius:16px;
+}
+.metric {padding:22px}
+.metric strong {display:block;font-size:18px}
+.metric span {color:var(--muted);font-size:12px}
+section {padding:65px 0}
+.kicker {color:var(--cyan);font-size:10px;letter-spacing:2px}
+.heading {font-size:32px;letter-spacing:-1px;margin:10px 0}
+.sub {color:var(--muted);font-size:14px;max-width:660px;line-height:1.85}
+.cards {
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:16px;margin-top:28px;
+}
+.card {padding:25px;transition:.22s}
+.card:hover {transform:translateY(-4px);border-color:#42d9ff66}
+.ico {
+  width:42px;height:42px;display:grid;place-items:center;
+  border-radius:12px;background:#168cff20;
+  color:var(--cyan);font-size:21px;margin-bottom:18px;
+}
+.card h3 {font-size:17px;margin:0 0 9px}
+.card p {font-size:13px;color:var(--muted);line-height:1.8}
+.market {
+  margin-top:25px;padding:27px;
+  border:1px solid var(--line);border-radius:17px;
+  background:linear-gradient(120deg,#10243a,#0a1727);
+}
+.market-top {
+  display:flex;justify-content:space-between;
+  gap:15px;align-items:flex-start;flex-wrap:wrap;
+}
+.market-title {font-weight:700;font-size:18px}
+.market-caption {color:var(--muted);font-size:12px;margin-top:5px}
+.tag {
+  color:var(--cyan);border:1px solid #42d9ff44;
+  border-radius:8px;padding:7px 10px;font-size:10px;letter-spacing:1px;
+}
+.market-note {
+  border-top:1px solid var(--line);padding-top:17px;
+  margin-top:20px;color:var(--muted);font-size:13px;line-height:1.8;
+}
+.about {
+  display:grid;grid-template-columns:1.1fr .9fr;
+  gap:25px;align-items:center;margin-top:25px;
+}
+.points {display:grid;gap:14px;margin-top:22px}
+.point {display:flex;gap:12px;color:var(--muted);font-size:13px}
+.check {color:var(--cyan);font-size:17px}
+.panel {padding:28px}
+.panel h3 {margin:0 0 12px;font-size:20px}
+.panel p {margin:0;color:var(--muted);font-size:13px;line-height:1.9}
+.contactbox {
+  text-align:center;padding:52px 24px;
+  border:1px solid #42d9ff33;border-radius:20px;
+  background:radial-gradient(ellipse at top,#168cff24,transparent 65%),#0c1a2b;
+}
+.contactbox h2 {font-size:30px;margin:9px 0}
+.contactbox p {color:var(--muted);font-size:14px;max-width:520px;margin:auto}
+.contactbox .btn {margin-top:23px}
+footer {margin-top:45px;border-top:1px solid var(--line);padding:25px 0 35px}
+.foot {display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
+.footnote {color:var(--muted);font-size:11px;margin-top:18px;line-height:1.8}
+@media(max-width:760px) {
+  .nav {height:68px}
+  .links {display:none}
+  .pill {padding:10px 12px;font-size:11px}
+  .hero {padding:75px 0 50px}
+  h1 {letter-spacing:-2px}
+  .metrics,.cards {grid-template-columns:1fr}
+  .about {grid-template-columns:1fr}
+  section {padding:48px 0}
+  .heading {font-size:27px}
+  .contactbox h2 {font-size:25px}
+}
+</style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="wrap nav">
-      <a class="brand" href="#top" aria-label="Aquamast — главная">
-        <span class="mark" aria-hidden="true">
-          <svg viewBox="0 0 32 32" fill="none">
-            <path d="M5 24.5 15.8 5l11.2 19.5h-6.1l-5.1-9.2-5 9.2H5Z" stroke="#8bdcff" stroke-width="2.2" stroke-linejoin="round"/>
-            <path d="M10.1 20.4h11.8" stroke="#73e0e8" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="25.7" cy="7" r="2.2" fill="#73e0e8"/>
-          </svg>
-        </span>
-        <span class="brand-name">aquamast</span>
-      </a>
-      <nav class="navlinks" aria-label="Основная навигация">
-        <a href="#calculator">Калькулятор</a>
-        <a href="#about">О проекте</a>
-        <a href="#notice">Информация</a>
-      </nav>
-      <a class="nav-cta" href="#calculator">Открыть демо <span aria-hidden="true">↗</span></a>
+
+<header>
+<div class="wrap nav">
+  <a class="brand" href="#top">
+    <span class="mark">A</span>
+    <span><b>AQUAMAST</b><small>EXCHANGE</small></span>
+  </a>
+  <nav class="links">
+    <a href="#about">О проекте</a>
+    <a href="#directions">Направления</a>
+    <a href="#market">Рынок</a>
+    <a href="#contacts">Контакты</a>
+  </nav>
+  <a class="pill" href="https://t.me/aquamast" target="_blank" rel="noopener">TELEGRAM ↗</a>
+</div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+<div class="wrap">
+  <div class="eyebrow"><span class="led"></span>DIGITAL ASSETS · TECHNOLOGY · INSIGHTS</div>
+  <h1>Цифровые активы.<br><span>Новый взгляд.</span></h1>
+  <p class="lead">
+    AQUAMAST — проект о цифровых активах, финансовых технологиях
+    и развитии современного рынка. Исследуем тенденции, делимся
+    полезной информацией и говорим о безопасности цифровой среды.
+  </p>
+  <div class="actions">
+    <a class="btn primary" href="#about">О проекте</a>
+    <a class="btn secondary" href="https://t.me/aquamast" target="_blank" rel="noopener">Открыть Telegram ↗</a>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>Digital Assets</strong><span>Цифровые активы и технологии</span></div>
+    <div class="metric"><strong>Market Insights</strong><span>Обзор рынка и тенденций</span></div>
+    <div class="metric"><strong>Security First</strong><span>Осознанность и безопасность</span></div>
+  </div>
+</div>
+</section>
+
+<section id="directions">
+<div class="wrap">
+  <div class="kicker">OUR DIRECTIONS</div>
+  <h2 class="heading">Направления проекта</h2>
+  <p class="sub">Информационные материалы о ключевых темах цифровой экономики — без сложных терминов и необоснованных обещаний.</p>
+  <div class="cards">
+    <article class="card">
+      <div class="ico">₿</div>
+      <h3>Криптовалюты</h3>
+      <p>Базовые понятия, новости и аналитические материалы о рынке цифровых активов.</p>
+    </article>
+    <article class="card">
+      <div class="ico">⇄</div>
+      <h3>Финансовые технологии</h3>
+      <p>Обзор цифровых инструментов, платёжной инфраструктуры и технологических решений.</p>
+    </article>
+    <article class="card">
+      <div class="ico">◇</div>
+      <h3>Безопасность</h3>
+      <p>Защита данных, проверка адресов и ответственное использование цифровых сервисов.</p>
+    </article>
+  </div>
+</div>
+</section>
+
+<section id="market">
+<div class="wrap">
+  <div class="kicker">MARKET OVERVIEW</div>
+  <h2 class="heading">Обзор цифрового рынка</h2>
+  <div class="market">
+    <div class="market-top">
+      <div><div class="market-title">RUB / USDT</div><div class="market-caption">Информационная тема проекта</div></div>
+      <span class="tag">MARKET INFORMATION</span>
     </div>
-  </header>
-
-  <main id="top">
-    <section class="hero">
-      <div class="wrap hero-grid">
-        <div>
-          <div class="eyebrow"><span class="dot"></span> Демонстрационный проект</div>
-          <h1>Цифровой мир.<br><span class="gradient">Понятные расчёты.</span></h1>
-          <p class="lead">Aquamast — демонстрационная концепция сервиса с простым и наглядным калькулятором USD/RUB. Изучите интерфейс и посмотрите, как работает расчёт по условному курсу.</p>
-          <div class="hero-actions">
-            <a class="button" href="#calculator">Попробовать калькулятор <span aria-hidden="true">→</span></a>
-            <a class="button secondary" href="#about">Узнать о проекте</a>
-          </div>
-          <p class="fine">Только демонстрация интерфейса. Реальные обмены и переводы не выполняются.</p>
-        </div>
-        <div class="visual" aria-label="Иллюстрация условного курса">
-          <div class="visual-head"><span>ПРИМЕР КУРСА</span><span class="live-pill">DEMO RATE</span></div>
-          <div class="visual-rate">1 USD <span style="color:#73e0e8">=</span> 88 RUB</div>
-          <div class="visual-sub">Условное значение для демонстрации калькулятора</div>
-          <div class="spark" aria-hidden="true">
-            <span></span><span></span><span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span><span></span><span></span>
-          </div>
-          <div class="visual-foot"><span>Иллюстрация, не рыночный график</span><span>DEMO</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="calculator">
-      <div class="wrap">
-        <div class="section-kicker">Калькулятор</div>
-        <h2>Простой расчёт за секунду</h2>
-        <p class="section-intro">Введите сумму в долларах — калькулятор покажет эквивалент в рублях по фиксированному условному курсу 88 RUB за 1 USD.</p>
-        <div class="calc-grid">
-          <div class="card">
-            <h3>USD → RUB</h3>
-            <p class="muted" style="font-size:13px;margin:0">Демонстрационный конвертер</p>
-            <label class="field-label" for="usd">Сумма в долларах США</label>
-            <div class="input-wrap">
-              <input id="usd" type="number" inputmode="decimal" min="0" max="100000000" step="0.01" value="100" aria-describedby="calc-help">
-              <span class="currency">USD</span>
-            </div>
-            <div class="result" aria-live="polite">
-              <div class="result-label">Примерный результат</div>
-              <div class="result-value"><span id="rub">8 800</span> <span style="font-size:17px;color:#a7bfd5">RUB</span></div>
-            </div>
-            <p id="calc-help" class="rate-note">Условный курс: 1 USD = 88 RUB. Не является актуальным или гарантированным курсом.</p>
-          </div>
-          <div class="card">
-            <h3>Как это работает</h3>
-            <p class="muted" style="font-size:13px;margin:0">Калькулятор предназначен только для знакомства с интерфейсом.</p>
-            <div class="info-list">
-              <div class="info-item"><span class="check">1</span><div><strong>Укажите сумму</strong><span>Введите любое положительное значение в поле USD.</span></div></div>
-              <div class="info-item"><span class="check">2</span><div><strong>Посмотрите результат</strong><span>Сумма автоматически пересчитывается по фиксированному демо-курсу.</span></div></div>
-              <div class="info-item"><span class="check">3</span><div><strong>Помните об ограничениях</strong><span>На сайте нет заявок, платежей, переводов или хранения финансовых данных.</span></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="about">
-      <div class="wrap">
-        <div class="section-kicker">О проекте</div>
-        <h2>Аккуратность в каждой детали</h2>
-        <p class="section-intro">Aquamast показывает, как может выглядеть современная цифровая платформа: лаконичный интерфейс, понятная навигация и прозрачное объяснение демонстрационных расчётов.</p>
-        <div class="features">
-          <article class="feature"><div class="feature-icon">⌁</div><h3>Понятный интерфейс</h3><p>Минималистичная структура помогает быстро найти нужный раздел и разобраться в калькуляторе.</p></article>
-          <article class="feature"><div class="feature-icon">◈</div><h3>Прозрачные условия</h3><p>Условный курс и ограничения демонстрации указаны рядом с расчётом, без скрытых условий.</p></article>
-          <article class="feature"><div class="feature-icon">▣</div><h3>Адаптация под телефон</h3><p>Страница автоматически подстраивается под экран смартфона, планшета и компьютера.</p></article>
-        </div>
-        <div class="notice" id="notice"><strong>Важно.</strong> Aquamast в текущей версии — только демонстрационный веб-проект. Он не предлагает и не осуществляет обмен валют, денежные переводы, приём или хранение средств. Курс 88 RUB за USD вымышлен и используется только для показа работы интерфейса. Любая будущая финансовая деятельность потребует предварительной юридической проверки, необходимых разрешений и участия ответственных взрослых.</div>
-      </div>
-    </section>
-
-    <section id="contact">
-      <div class="wrap">
-        <div class="contact">
-          <div><div class="section-kicker">Связь</div><h2 style="font-size:27px;margin:7px 0">Есть вопрос о демо-проекте?</h2><p>Напишите по вопросам сайта и его демонстрационной версии.</p></div>
-          <a class="button" href="https://t.me/aquamast" target="_blank" rel="noopener noreferrer">Telegram @aquamast <span aria-hidden="true">↗</span></a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="wrap footer-row">
-      <span>© <span id="year"></span> Aquamast. Демонстрационный проект.</span>
-      <span>Не является финансовой услугой или предложением обмена валют.</span>
+    <div class="market-note">
+      Этот блок посвящён общему ознакомлению с валютными парами
+      и цифровыми активами. Котировки в реальном времени здесь
+      не отображаются. Перед принятием финансовых решений самостоятельно
+      проверяйте актуальные данные и учитывайте возможные риски.
     </div>
-  </footer>
-  <script>
-    (() => {
-      const input = document.getElementById('usd');
-      const output = document.getElementById('rub');
-      const formatter = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 2 });
-      const rate = 88;
-      function update() {
-        const raw = input.value.trim();
-        const amount = raw === '' ? 0 : Number(raw);
-        if (!Number.isFinite(amount) || amount < 0) {
-          output.textContent = '—';
-          return;
-        }
-        output.textContent = formatter.format(amount * rate);
-      }
-      input.addEventListener('input', update);
-      document.getElementById('year').textContent = new Date().getFullYear();
-      update();
-    })();
-  </script>
+  </div>
+</div>
+</section>
+
+<section id="about">
+<div class="wrap">
+  <div class="kicker">ABOUT AQUAMAST</div>
+  <h2 class="heading">Технологии. Прозрачность. Развитие.</h2>
+  <div class="about">
+    <div>
+      <p class="sub">
+        AQUAMAST объединяет интерес к цифровым активам, современным
+        технологиям и финансовой грамотности. Наша цель — делать
+        информацию о быстро меняющемся рынке понятнее.
+      </p>
+      <div class="points">
+        <div class="point"><span class="check">✦</span><span>Понятная информация о цифровом рынке</span></div>
+        <div class="point"><span class="check">✦</span><span>Внимание к безопасности и проверке данных</span></div>
+        <div class="point"><span class="check">✦</span><span>Новости и обновления проекта</span></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>AQUAMAST EXCHANGE</h3>
+      <p>
+        Современная цифровая среда с акцентом на удобство,
+        аккуратный дизайн и ответственное отношение
+        к финансовым технологиям.
+      </p>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="contacts">
+<div class="wrap">
+  <div class="contactbox">
+    <div class="kicker">STAY CONNECTED</div>
+    <h2>На связи с AQUAMAST</h2>
+    <p>Новости проекта, публикации и обратная связь — в нашем Telegram-канале.</p>
+    <a class="btn primary" href="https://t.me/aquamast" target="_blank" rel="noopener">Перейти в Telegram ↗</a>
+  </div>
+</div>
+</section>
+
+</main>
+
+<footer>
+<div class="wrap">
+  <div class="foot">
+    <a class="brand" href="#top">
+      <span class="mark">A</span>
+      <span><b>AQUAMAST</b><small>EXCHANGE</small></span>
+    </a>
+    <span style="color:#91a5bb;font-size:11px">© 2026 AQUAMAST</span>
+  </div>
+  <p class="footnote">
+    Информационный сайт. Материалы не являются индивидуальной финансовой
+    рекомендацией или публичной офертой. Сайт предоставляет функции
+    проведения обменных операций и приёма платежей.
+  </p>
+</div>
+</footer>
+
 </body>
 </html>
